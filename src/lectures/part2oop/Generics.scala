@@ -1,6 +1,6 @@
 package lectures.part2oop
 
-object Genrics extends App {
+object Generics extends App {
 
   class MyList[+A] {
     // use the type A
