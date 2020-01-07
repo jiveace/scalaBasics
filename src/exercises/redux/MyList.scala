@@ -25,7 +25,7 @@ abstract class MeList[+A] {
   def ++[B >: A](list: MeList[B]): MeList[B]
 }
 
-object Empty extends MeList[Nothing] {
+case object Empty extends MeList[Nothing] {
   override def head: Nothing = throw new NoSuchElementException
   override def tail: MeList[Nothing] = throw new NoSuchElementException
   override def isEmpty: Boolean = true
@@ -38,7 +38,7 @@ object Empty extends MeList[Nothing] {
   override def ++[B >: Nothing](list: MeList[B]): MeList[B] = list
 }
 
-class Cons[+A](h: A, t: MeList[A]) extends MeList[A] {
+case class Cons[+A](h: A, t: MeList[A]) extends MeList[A] {
   override def head: A = h
   override def tail: MeList[A] = t
   override def isEmpty: Boolean = false
@@ -63,6 +63,7 @@ class Cons[+A](h: A, t: MeList[A]) extends MeList[A] {
 
 object Demo extends App {
   val listOfIntegers: MeList[Int] = new Cons(1, new Cons(8, new Cons(17, Empty)))
+  val cloneListOfIntegers: MeList[Int] = new Cons(1, new Cons(8, new Cons(17, Empty)))
   val secondListOfIntegers: MeList[Int] = new Cons(10, new Cons(80, new Cons(170, Empty)))
   val listOfStrings: MeList[String] = new Cons("Tick", new Cons("Arthur", new Cons("Dot", new Cons("Overkill", Empty))))
 
@@ -91,4 +92,6 @@ object Demo extends App {
       s"$elem is a superhero! \n"
     }
   }))
+
+  println(listOfIntegers == cloneListOfIntegers)
 }
