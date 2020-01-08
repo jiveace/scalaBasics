@@ -1,18 +1,14 @@
 package exercises.redux
 
-//trait MyPredicate[-T] {
-//  def test(value: T): Boolean
-//}
-//
-//trait MyTransformer[-A, B] {
-//  def transform(input: A): B
-//}
-
 abstract class MeList[+A] {
   def head: A
+
   def tail: MeList[A]
+
   def isEmpty: Boolean
+
   def add[B >: A](i: B): MeList[B]
+
   def printElements: String
 
   override def toString: String = {
@@ -20,34 +16,48 @@ abstract class MeList[+A] {
   }
 
   def map[B](transformer: A => B): MeList[B]
-  def flatMap[B](transformer: A =>  MeList[B]): MeList[B]
+
+  def flatMap[B](transformer: A => MeList[B]): MeList[B]
+
   def filter(predicate: A => Boolean): MeList[A]
+
   def ++[B >: A](list: MeList[B]): MeList[B]
 }
 
 case object Empty extends MeList[Nothing] {
   override def head: Nothing = throw new NoSuchElementException
+
   override def tail: MeList[Nothing] = throw new NoSuchElementException
+
   override def isEmpty: Boolean = true
+
   override def add[B >: Nothing](i: B): MeList[B] = new Cons(i, Empty)
+
   override def printElements = ""
 
   def map[B](transformer: Nothing => B) = Empty
+
   def flatMap[B](transformer: Nothing => MeList[B]): MeList[B] = Empty
+
   def filter(predicate: Nothing => Boolean): MeList[Nothing] = Empty
+
   override def ++[B >: Nothing](list: MeList[B]): MeList[B] = list
 }
 
 case class Cons[+A](h: A, t: MeList[A]) extends MeList[A] {
   override def head: A = h
+
   override def tail: MeList[A] = t
+
   override def isEmpty: Boolean = false
+
   override def add[B >: A](i: B): MeList[B] = new Cons[B](i, this)
+
   override def printElements =
     if (t.isEmpty) "" + h
     else h + " " + t.printElements
 
-  override def map[B](transform: A =>  B): MeList[B] = {
+  override def map[B](transform: A => B): MeList[B] = {
     new Cons(transform(head), tail.map(transform))
   }
 
@@ -58,6 +68,7 @@ case class Cons[+A](h: A, t: MeList[A]) extends MeList[A] {
     if (test(head)) new Cons(h, t.filter(test))
     else t.filter(test)
   }
+
   override def ++[B >: A](list: MeList[B]): MeList[B] = new Cons(h, t ++ list)
 }
 
@@ -70,28 +81,13 @@ object Demo extends App {
   println(listOfIntegers.toString)
   println(listOfStrings.toString)
 
-  println(listOfIntegers.map(new Function1[Int, Int] {
-    override def apply(elem: Int): Int = {
-      4 * elem
-    }
-  }))
-
-  println(listOfIntegers.filter(new Function1[Int , Boolean] {
-    override def apply(elem: Int): Boolean = {
-      elem > 5
-    }
-  }))
+  println(listOfIntegers.map(4 * _))
+  println(listOfIntegers.filter(_ < 5))
 
   println(listOfIntegers ++ secondListOfIntegers)
-  println(listOfIntegers.flatMap(new Function1[Int, MeList[Int]] {
-    override def apply(elem: Int): MeList[Int] = new Cons(elem, new Cons(elem + 1, Empty))
-  }))
+  println(listOfIntegers.flatMap(elem => new Cons(elem, new Cons(elem + 1, Empty))))
 
-  println(listOfStrings.map(new Function1[String, String] {
-    override def apply(elem: String): String = {
-      s"$elem is a superhero! \n"
-    }
-  }))
 
+  println(listOfStrings.map(elem => s"$elem is a superhero! \n"))
   println(listOfIntegers == cloneListOfIntegers)
 }
