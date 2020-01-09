@@ -23,7 +23,7 @@ abstract class MeList[+A] {
 
   def ++[B >: A](list: MeList[B]): MeList[B]
 
-  def forEach(func: (A) => Unit): Unit
+  def foreach(func: (A) => Unit): Unit
 
   def sort(comparator: (A, A) => Int): MeList[A]
 
@@ -51,7 +51,7 @@ case object Empty extends MeList[Nothing] {
 
   override def ++[B >: Nothing](list: MeList[B]): MeList[B] = list
 
-  override def forEach(func: Nothing => Unit): Unit = ()
+  override def foreach(func: Nothing => Unit): Unit = ()
 
   override def sort(comparator: (Nothing, Nothing) => Int): MeList[Nothing] = Empty
 
@@ -89,9 +89,9 @@ case class Cons[+A](h: A, t: MeList[A]) extends MeList[A] {
 
   override def ++[B >: A](list: MeList[B]): MeList[B] = new Cons(h, t ++ list)
 
-  override def forEach(func: (A) => Unit): Unit = {
+  override def foreach(func: (A) => Unit): Unit = {
     func(head)
-    t.forEach(func)
+    t.foreach(func)
   }
 
 
@@ -133,9 +133,12 @@ object Demo extends App {
 
   println(listOfStrings.map(elem => s"$elem is a superhero! \n"))
   println(listOfIntegers == cloneListOfIntegers)
-  println(listOfIntegers.forEach(x => println(x)))
+  println(listOfIntegers.foreach(x => println(x)))
 
   println(Cons(111, Cons(22, Cons(3, Empty))).sort(_ - _))
   println(listOfIntegers.zipsWith(listOfStrings, (x: Int, y: String) => s"$y has $x IQ points\n"))
 
+  val plop = for {
+    i <- listOfIntegers
+  } yield "_" + i
 }
