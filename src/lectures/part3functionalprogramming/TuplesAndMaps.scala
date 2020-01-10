@@ -41,4 +41,7 @@ object TuplesAndMaps extends App {
   // Very Cool
   val names = List("Bob", "James", "Anglea", "Mary", "Dan", "Jim")
   println(names.groupBy(name => name.charAt(0)))
+
+  val duplicateMap = Map("JIM" -> "Second", "Jim" -> "Third")
+  println(duplicateMap.map(pair => pair._1.toUpperCase -> pair._2))
 }
