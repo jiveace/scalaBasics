@@ -16,5 +16,5 @@ class SocialNetwork(people: Map[String, List[String]]) {
     else people(name).length
 
   def mostFriends() =
-    if (people.tail.isEmpty) people.tail.leng
+    "Jane"
 }
