@@ -84,11 +84,19 @@ class OneToTenTest extends AnyFlatSpec {
     assert(oneToTen.getIndex(List(2.3, 4.3, 5.3, 6.3, 7.3, 8.3, 9.3), 5) == 8.3)
   }
 
+  "count" should "throw exception for null input" in {
+    assertThrows[NoSuchElementException](oneToTen.count(null))
+  }
+
   "count" should "count the elements in a list" in {
     assert(oneToTen.count(List()) == 0)
     assert(oneToTen.count(List(1, 2, 3)) == 3)
     assert(oneToTen.count(List(1, 2, 3, 4, 5, 6, 7)) == 7)
     assert(oneToTen.count(List(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0)) == 7)
+  }
+
+  "reverse" should "throw exception for null input" in {
+    assertThrows[NoSuchElementException](oneToTen.reverse(null))
   }
 
   "reverse" should "reverse the elements in a list" in {
@@ -98,7 +106,11 @@ class OneToTenTest extends AnyFlatSpec {
     assert(oneToTen.reverse(List(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0)) == List(7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0))
   }
 
-  "palindrome" should "identifies if a list is a palindrome" in {
+  "isPalindrome" should "throw exception for null input" in {
+    assertThrows[NoSuchElementException](oneToTen.isPalindrome(null))
+  }
+
+  "isPalindrome" should "identify if a list is a palindrome" in {
     assert(oneToTen.isPalindrome(List()) == true)
 
     assert(oneToTen.isPalindrome(List(1, 2, 3)) == false)

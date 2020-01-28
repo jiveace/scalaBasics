@@ -7,25 +7,28 @@ Test Driven Implementations of https://www.thedigitalcatonline.com/blog/2015/04/
 import java.util.NoSuchElementException
 
 class OneToTen {
-  def isPalindrome[A](value: List[A]): Boolean = {
-    if (value.size < 2) true
-    else value.head.equals(value.last) && isPalindrome(value.tail.init)
+  def isPalindrome[A](n: List[A]): Boolean = {
+    if (n == null) throw new NoSuchElementException
+    if (n.size < 2) true
+    else n.head.equals(n.last) && isPalindrome(n.tail.init)
   }
 
-  def reverse[A](value: List[A]): List[A] = {
+  def reverse[A](n: List[A]): List[A] = {
     def helper[A](oldList: List[A], newList: List[A]): List[A] =
       if (oldList.isEmpty) newList
       else helper(oldList.tail, oldList.head +: newList)
 
-    helper(value, List())
+    if (n == null) throw new NoSuchElementException
+    helper(n, List())
   }
 
-  def count[A](value: List[A]): Int = {
+  def count[A](n: List[A]): Int = {
     def helper(subList: List[A], acc: Int): Int =
       if (subList.isEmpty) acc
       else helper(subList.tail, acc + 1)
 
-    helper(value, 0)
+    if (n == null) throw new NoSuchElementException
+    helper(n, 0)
   }
 
   def getIndex[A](n: List[A], index: Int): A =
