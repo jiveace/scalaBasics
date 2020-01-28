@@ -97,4 +97,16 @@ class OneToTenTest extends AnyFlatSpec {
     assert(oneToTen.reverse(List(1, 2, 3, 4, 5, 6, 7)) == List(7, 6, 5, 4, 3, 2, 1))
     assert(oneToTen.reverse(List(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0)) == List(7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0))
   }
+
+  "palindrome" should "identifies if a list is a palindrome" in {
+    assert(oneToTen.isPalindrome(List()) == true)
+
+    assert(oneToTen.isPalindrome(List(1, 2, 3)) == false)
+    assert(oneToTen.isPalindrome(List(1, 2, 3, 4, 5, 6, 7)) == false)
+    assert(oneToTen.isPalindrome(List(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0)) == false)
+
+    assert(oneToTen.isPalindrome(List(1, 2, 1)) == true)
+    assert(oneToTen.isPalindrome(List(1, 2, 3, 4, 3, 2, 1)) == true)
+    assert(oneToTen.isPalindrome(List(1.0, 2.0, 3.0, 4.0, 3.0, 2.0, 1.0)) == true)
+  }
 }

@@ -7,6 +7,11 @@ Test Driven Implementations of https://www.thedigitalcatonline.com/blog/2015/04/
 import java.util.NoSuchElementException
 
 class OneToTen {
+  def isPalindrome[A](value: List[A]): Boolean = {
+    if (value.size < 2) true
+    else value.head.equals(value.last) && isPalindrome(value.tail.init)
+  }
+
   def reverse[A](value: List[A]): List[A] = {
     def helper[A](oldList: List[A], newList: List[A]): List[A] =
       if (oldList.isEmpty) newList
