@@ -7,6 +7,13 @@ Test Driven Implementations of https://www.thedigitalcatonline.com/blog/2015/04/
 import java.util.NoSuchElementException
 
 class OneToTen {
+  def compress[A](n: List[A]): List[A] = {
+    if (n == null) throw new IllegalStateException("Cannot compress null list")
+    else if (n.size < 2) n
+    else if (n.head == n.tail.head) compress(n.tail)
+    else List(n.head) ::: compress(n.tail)
+  }
+
   def flatten(n: List[Any]): List[Any] = {
 
     def _flatten(res: List[Any], remainder: List[Any]): List[Any] = {
@@ -17,7 +24,7 @@ class OneToTen {
       }
     }
 
-    if (n == null) throw new IllegalStateException("Cannot flatten null map")
+    if (n == null) throw new IllegalStateException("Cannot flatten null list")
     else _flatten(List(), n)
   }
 

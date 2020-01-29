@@ -151,5 +151,24 @@ class OneToTenTest extends AnyFlatSpec {
     assert(oneToTen.flatten(List(List(List(List(List(List("1"))))))) == List("1"))
   }
 
+  "compress" should "throw exception for null input" in {
+    assertThrows[IllegalStateException](oneToTen.compress(null))
+  }
+
+  "compress" should "throw return empty list for empty input" in {
+    assert(oneToTen.compress(List()) == List())
+  }
+
+  "compress" should "not alter list with non consecutive duplicates" in {
+    assert(oneToTen.compress(List(1, 2, 3, 4, 5, 1, 2, 3, 4, 5)) == List(1, 2, 3, 4, 5, 1, 2, 3, 4, 5))
+    assert(oneToTen.compress(List("one", "two", "one")) == List("one", "two", "one"))
+  }
+
+  "compress" should "compress consecutive duplicates" in {
+    assert(oneToTen.compress(List(1, 1)) == List(1))
+    assert(oneToTen.compress(List(1, 1, 2, 2)) == List(1, 2))
+    assert(oneToTen.compress(List(1, 1, 2, 3, 3)) == List(1, 2, 3))
+    assert(oneToTen.compress(List(0, 1, 1, 2, 3, 3, 4)) == List(0, 1, 2, 3, 4))
+  }
 
 }
