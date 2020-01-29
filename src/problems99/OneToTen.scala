@@ -10,7 +10,8 @@ class OneToTen {
   def compress[A](n: List[A]): List[A] = {
 
     def _compress(_n: List[A], accumulator: List[A]): List[A] =
-      if (_n.size < 2) accumulator ::: List(_n.head)
+      if (_n.isEmpty) accumulator
+      else if (_n.size == 1) accumulator ::: List(_n.head)
       else if (_n.head == _n.tail.head) _compress(_n.tail, accumulator)
       else _compress(_n.tail, accumulator ::: List(_n.head))
 

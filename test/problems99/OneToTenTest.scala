@@ -169,13 +169,14 @@ class OneToTenTest extends AnyFlatSpec {
     assert(oneToTen.compress(List(1, 1, 2, 2)) == List(1, 2))
     assert(oneToTen.compress(List(1, 1, 2, 3, 3)) == List(1, 2, 3))
     assert(oneToTen.compress(List(0, 1, 1, 2, 3, 3, 4)) == List(0, 1, 2, 3, 4))
-//
-//    assert(oneToTen.compress(List(0.0, 1.0, 1.0, 2.0, 3.0, 3.0, 4.0)) == List(0.0, 1.0, 2.0, 3.0, 4.0))
-//    assert(oneToTen.compress(List("0", "1", "1", "2", "3", "3", "4")) == List("0", "1", "2", "3", "4"))
+
+    assert(oneToTen.compress(List(0.0, 1.0, 1.0, 2.0, 3.0, 3.0, 4.0)) == List(0.0, 1.0, 2.0, 3.0, 4.0))
+    assert(oneToTen.compress(List("0", "1", "1", "2", "3", "3", "4")) == List("0", "1", "2", "3", "4"))
   }
-//  "compress" should "not round doubles when considering duplicates" in {
-//    assert(oneToTen.compress(List(0.0, 1.0, 1.1, 1.1, 3.0, 3.0, 3.1)) == List(0.0, 1.0, 1.1, 3.0, 3.1))
-//
-//  }
+
+  "compress" should "not round doubles when considering duplicates" in {
+    assert(oneToTen.compress(List(0.0, 1.0, 1.1, 1.1, 3.0, 3.0, 3.1)) == List(0.0, 1.0, 1.1, 3.0, 3.1))
+
+  }
 
 }
