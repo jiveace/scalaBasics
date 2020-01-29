@@ -121,4 +121,22 @@ class OneToTenTest extends AnyFlatSpec {
     assert(oneToTen.isPalindrome(List(1, 2, 3, 4, 3, 2, 1)) == true)
     assert(oneToTen.isPalindrome(List(1.0, 2.0, 3.0, 4.0, 3.0, 2.0, 1.0)) == true)
   }
+
+  "flatten" should "throw exception for null input" in {
+    assertThrows[IllegalStateException](oneToTen.flatten(null))
+  }
+
+  "flatten" should "throw return empty list for empty input" in {
+    assert(oneToTen.flatten(List()) == List())
+  }
+
+  "flatten" should "support single elements" in {
+    assert(oneToTen.flatten(List(1,2,3,4,5)) == List(1,2,3,4,5))
+  }
+
+  "flatten" should "support top level lists elements" in {
+    assert(oneToTen.flatten(List(1,List(2,3),4,5)) == List(1,2,3,4,5))
+  }
+
+
 }

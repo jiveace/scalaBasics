@@ -7,6 +7,20 @@ Test Driven Implementations of https://www.thedigitalcatonline.com/blog/2015/04/
 import java.util.NoSuchElementException
 
 class OneToTen {
+  def flatten(n: List[Any]): List[Any] = {
+
+    def _flatten(res: List[Any], remainder: List[Any]): List[Any] = {
+      if (remainder.isEmpty) res
+      else remainder.head match {
+        case list: List[Any] => _flatten(res ::: list, remainder.tail)
+        case singular => _flatten(res ::: List(singular), remainder.tail)
+      }
+    }
+
+    if (n == null) throw new IllegalStateException("Cannot flatten null map")
+    else _flatten(List(), n)
+  }
+
   def isPalindrome[A](n: List[A]): Boolean = {
     if (n == null) throw new NoSuchElementException
     if (n.size < 2) true
