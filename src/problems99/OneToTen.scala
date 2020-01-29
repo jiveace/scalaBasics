@@ -8,10 +8,14 @@ import java.util.NoSuchElementException
 
 class OneToTen {
   def compress[A](n: List[A]): List[A] = {
+
+    def _compress(_n: List[A], accumulator: List[A]): List[A] =
+      if (_n.size < 2) accumulator ::: List(_n.head)
+      else if (_n.head == _n.tail.head) _compress(_n.tail, accumulator)
+      else _compress(_n.tail, accumulator ::: List(_n.head))
+
     if (n == null) throw new IllegalStateException("Cannot compress null list")
-    else if (n.size < 2) n
-    else if (n.head == n.tail.head) compress(n.tail)
-    else List(n.head) ::: compress(n.tail)
+    else _compress(n, List())
   }
 
   def flatten(n: List[Any]): List[Any] = {
