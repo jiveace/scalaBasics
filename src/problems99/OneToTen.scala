@@ -12,7 +12,7 @@ class OneToTen {
     def _flatten(res: List[Any], remainder: List[Any]): List[Any] = {
       if (remainder.isEmpty) res
       else remainder.head match {
-        case list: List[Any] => _flatten(res ::: list, remainder.tail)
+        case list: List[Any] => _flatten(res ::: flatten(list), remainder.tail)
         case singular => _flatten(res ::: List(singular), remainder.tail)
       }
     }

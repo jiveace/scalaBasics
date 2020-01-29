@@ -131,11 +131,24 @@ class OneToTenTest extends AnyFlatSpec {
   }
 
   "flatten" should "support single elements" in {
-    assert(oneToTen.flatten(List(1,2,3,4,5)) == List(1,2,3,4,5))
+    assert(oneToTen.flatten(List(1, 2, 3, 4, 5)) == List(1, 2, 3, 4, 5))
   }
 
   "flatten" should "support top level lists elements" in {
-    assert(oneToTen.flatten(List(1,List(2,3),4,5)) == List(1,2,3,4,5))
+    assert(oneToTen.flatten(List(1, List(2, 3), 4, 5)) == List(1, 2, 3, 4, 5))
+    assert(oneToTen.flatten(List(10, List(20, 30), List(40, 50))) == List(10, 20, 30, 40, 50))
+    assert(oneToTen.flatten(List(List("1"), List("2", "3"), List("4", "5"))) == List("1", "2", "3", "4", "5"))
+  }
+
+  "flatten" should "support mixed types" in {
+    assert(oneToTen.flatten(List(1, List("2", 3), 4, "5")) == List(1, "2", 3, 4, "5"))
+    assert(oneToTen.flatten(List(10, List(20, 30), List(false, false))) == List(10, 20, 30, false, false))
+  }
+
+  "flatten" should "supports nested lists" in {
+    assert(oneToTen.flatten(List(1, List(2, List(3)), 4, 5)) == List(1, 2, 3, 4, 5))
+    assert(oneToTen.flatten(List(10, List(List(20), List(30)), List(40, 50))) == List(10, 20, 30, 40, 50))
+    assert(oneToTen.flatten(List(List(List(List(List(List("1"))))))) == List("1"))
   }
 
 
