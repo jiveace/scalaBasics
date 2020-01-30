@@ -7,6 +7,11 @@ Test Driven Implementations of https://www.thedigitalcatonline.com/blog/2015/04/
 import java.util.NoSuchElementException
 
 class OneToTen {
+  def encode[A](n: List[A]): List[(A, Int)] =
+    if (n == null) throw new IllegalStateException("Cannot encode null list")
+    else if (n.isEmpty) throw new IllegalStateException("Cannot encode empty list")
+    else compressToList(n).map(x => (x.head, x.length))
+
   def compressToList[A](n: List[A]): List[List[A]] = {
 
     def _compress(res: List[List[A]], rem: List[A]): List[List[A]] = rem match {
