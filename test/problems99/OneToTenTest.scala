@@ -179,4 +179,30 @@ class OneToTenTest extends AnyFlatSpec {
 
   }
 
+  "compressToList" should "throw exception for null input" in {
+    assertThrows[IllegalStateException](oneToTen.compressToList(null))
+  }
+
+  "compressToList" should "throw return list containing an empty list for empty input" in {
+    assert(oneToTen.compressToList(List()) == List())
+  }
+
+  "compressToList" should "throw convert a single element to a list" in {
+    assert(oneToTen.compressToList(List(1)) == List(List(1)))
+    assert(oneToTen.compressToList(List(1, 2)) == List(List(1), List(2)))
+    assert(oneToTen.compressToList(List("A", "B", "C")) == List(List("A"), List("B"), List("C")))
+  }
+
+  "compressToList" should "throw convert repeated elements to a single list" in {
+    assert(oneToTen.compressToList(List(1, 1)) == List(List(1, 1)))
+    assert(oneToTen.compressToList(List(1, 1, 2, 2)) == List(List(1, 1), List(2, 2)))
+    assert(oneToTen.compressToList(List(1, 1, 1, 1, 2, 2, 2, 3, 3, 4)) == List(List(1, 1, 1, 1), List(2, 2, 2), List(3, 3), List(4)))
+  }
+
+  "compressToList" should "handles single elements and lists" in {
+    assert(oneToTen.compressToList(List(1, 1, 2)) == List(List(1, 1), List(2)))
+    assert(oneToTen.compressToList(List("1", "1", "2", "3", "3")) == List(List("1", "1"), List("2"), List("3", "3")))
+    assert(oneToTen.compressToList(List('a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e')) == List(List('a', 'a', 'a', 'a'), List('b'), List('c', 'c'), List('a', 'a'), List('d'), List('e', 'e', 'e', 'e')))
+  }
+
 }

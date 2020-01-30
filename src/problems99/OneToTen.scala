@@ -7,6 +7,24 @@ Test Driven Implementations of https://www.thedigitalcatonline.com/blog/2015/04/
 import java.util.NoSuchElementException
 
 class OneToTen {
+  def compressToList[A](n: List[A]): List[List[A]] = {
+
+    def _compress(res: List[List[A]], rem: List[A]): List[List[A]] = rem match {
+      case Nil => res
+      case h :: tail if (res.isEmpty || res.last.head != h) => _compress(res ::: List(List(h)), tail)
+      case h :: tail => _compress(res.init ::: List(res.last ::: List(h)), tail)
+    }
+
+    def __compress(listAcc: List[List[A]], elementAcc: List[A], remainder: List[A]): List[List[A]] =
+      if (remainder.isEmpty) listAcc :+ elementAcc
+      else if (elementAcc.head == remainder.head) __compress(listAcc, elementAcc :+ remainder.head, remainder.tail)
+      else __compress(listAcc :+ elementAcc, List(remainder.head), remainder.tail)
+
+    if (n == null) throw new IllegalStateException("Cannot compress null list")
+    else if (n.isEmpty) List()
+    else _compress(List(), n)
+  }
+
   def compress[A](n: List[A]): List[A] = {
 
     def _compress(_n: List[A], accumulator: List[A]): List[A] =
