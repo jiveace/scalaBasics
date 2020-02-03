@@ -116,10 +116,16 @@ class ElevenToTwentyTest extends AnyFlatSpec {
     assertThrows[IllegalStateException](ElevenToTwenty.drop(1, List()))
   }
 
-  "drop" should "return input list for a drop count of '0' of 0" in {
+  "drop" should "return input list for a drop count of '0'" in {
     assert(ElevenToTwenty.drop(0, List(1)) == List(1))
     assert(ElevenToTwenty.drop(0, List("A")) == List("A"))
     assert(ElevenToTwenty.drop(0, List(11.12)) == List(11.12))
+  }
+
+  "drop" should "return input list for a negative drop count" in {
+    assert(ElevenToTwenty.drop(-1, List(1)) == List(1))
+    assert(ElevenToTwenty.drop(-2, List("A", "B", "C", "D")) == List("A", "B", "C", "D"))
+    assert(ElevenToTwenty.drop(-3, List(11.12, 22.23, 33.34, 44.45, 55.56, 66.67)) == List(11.12, 22.23, 33.34, 44.45, 55.56, 66.67))
   }
 
   "drop" should "return empty list for a drop count of '1'" in {
@@ -139,5 +145,43 @@ class ElevenToTwentyTest extends AnyFlatSpec {
     assert(ElevenToTwenty.drop(3, List("A", "B", "C", "D", "E", "F")) == List("A", "B", "D", "E"))
     assert(ElevenToTwenty.drop(3, List(11.12, 22.23, 33.34, 44.45, 55.56, 66.67)) == List(11.12, 22.23, 44.45, 55.56))
   }
+
+  "splitInTwain" should "throw exception for null list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.splitInTwain(1, null))
+  }
+
+  "splitInTwain" should "throw exception for empty list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.splitInTwain(1, List()))
+  }
+
+  "splitInTwain" should "return an empty list and the existing list if split point is 0" in {
+    assert(ElevenToTwenty.splitInTwain(0, List(1, 2, 3)) == (List(), List(1, 2, 3)))
+  }
+
+  "splitInTwain" should "return an empty list and the existing list if split point is < 0" in {
+    assert(ElevenToTwenty.splitInTwain(-1, List(1, 2, 3)) == (List(), List(1, 2, 3)))
+    assert(ElevenToTwenty.splitInTwain(-2, List(1, 2, 3)) == (List(), List(1, 2, 3)))
+    assert(ElevenToTwenty.splitInTwain(-3, List(1, 2, 3)) == (List(), List(1, 2, 3)))
+  }
+
+  "splitInTwain" should "return the existing list and an empty list if split point is > than the list length" in {
+    assert(ElevenToTwenty.splitInTwain(4, List(1, 2, 3)) == (List(), List(1, 2, 3)))
+    assert(ElevenToTwenty.splitInTwain(5, List(1, 2, 3)) == (List(), List(1, 2, 3)))
+    assert(ElevenToTwenty.splitInTwain(6, List(1, 2, 3)) == (List(), List(1, 2, 3)))
+  }
+
+  "splitInTwain" should "return an the head of the list and the tail of the list if split point is 1" in {
+    assert(ElevenToTwenty.splitInTwain(1, List(1, 2, 3)) == (List(1), List(2, 3)))
+  }
+
+  "splitInTwain" should "split a list at any split point " in {
+    assert(ElevenToTwenty.splitInTwain(1, List("A", "B", "C", "D", "E", "F")) == (List("A"), List("B", "C", "D", "E", "F")))
+    assert(ElevenToTwenty.splitInTwain(2, List("A", "B", "C", "D", "E", "F")) == (List("A", "B"), List("C", "D", "E", "F")))
+    assert(ElevenToTwenty.splitInTwain(3, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C"), List("D", "E", "F")))
+    assert(ElevenToTwenty.splitInTwain(4, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C", "D"), List("E", "F")))
+    assert(ElevenToTwenty.splitInTwain(5, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C", "D", "E"), List("F")))
+    assert(ElevenToTwenty.splitInTwain(6, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C", "D", "E", "F"), List()))
+  }
+
 
 }
