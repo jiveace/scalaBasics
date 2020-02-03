@@ -182,6 +182,4 @@ class ElevenToTwentyTest extends AnyFlatSpec {
     assert(ElevenToTwenty.splitInTwain(5, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C", "D", "E"), List("F")))
     assert(ElevenToTwenty.splitInTwain(6, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C", "D", "E", "F"), List()))
   }
-
-
 }
