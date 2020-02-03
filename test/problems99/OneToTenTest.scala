@@ -213,18 +213,19 @@ class OneToTenTest extends AnyFlatSpec {
     assertThrows[IllegalStateException](oneToTen.encode(List()) == List())
   }
 
-  "compressToList" should "encode a single element to a tuple" in {
+  "encode" should "encode a single element to a tuple" in {
     assert(oneToTen.encode(List(1)) == List((1, 1)))
     assert(oneToTen.encode(List(1, 2)) == List((1, 1), (2, 1)))
     assert(oneToTen.encode(List("A", "B", "C")) == List(("A", 1), ("B", 1), ("C", 1)))
   }
 
-  "compressToList" should "encode consecutive identical elements to the same tuple" in {
+  "encode" should "encode consecutive identical elements to the same tuple" in {
     assert(oneToTen.encode(List("A", "A")) == List(("A", 2)))
     assert(oneToTen.encode(List(1, 1, 1, 2, 2, 2)) == List((1, 3), (2, 3)))
   }
-  "compressToList" should "encode non consecutive identical elements to a different tuple" in {
+
+  "encode" should "encode non consecutive identical elements to a different tuple" in {
     assert(oneToTen.encode(List("A", "B", "A")) == List(("A", 1), ("B", 1), ("A", 1)))
-    assert(oneToTen.encode(List('t', 'a', 't', 'a', 'b', 't')) == List(('t', 1), ('a', 3), ('t', 1), ('a', 3), ('b', 2), ('t', 1)))
+    assert(oneToTen.encode(List('t', 'a', 't', 'a', 'b', 't')) == List(('t', 1), ('a', 1), ('t', 1), ('a', 1), ('b', 1), ('t', 1)))
   }
 }
