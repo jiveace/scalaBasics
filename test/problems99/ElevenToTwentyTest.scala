@@ -108,4 +108,36 @@ class ElevenToTwentyTest extends AnyFlatSpec {
     assert(ElevenToTwenty.duplicateN(2, List(11.12)) == ElevenToTwenty.duplicate(List(11.12)))
   }
 
+  "drop" should "throw exception for null list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.drop(1, null))
+  }
+
+  "drop" should "throw exception for empty list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.drop(1, List()))
+  }
+
+  "drop" should "return input list for a drop count of '0' of 0" in {
+    assert(ElevenToTwenty.drop(0, List(1)) == List(1))
+    assert(ElevenToTwenty.drop(0, List("A")) == List("A"))
+    assert(ElevenToTwenty.drop(0, List(11.12)) == List(11.12))
+  }
+
+  "drop" should "return empty list for a drop count of '1'" in {
+    assert(ElevenToTwenty.drop(1, List(1)) == List())
+    assert(ElevenToTwenty.drop(1, List("A")) == List())
+    assert(ElevenToTwenty.drop(1, List(11.12)) == List())
+  }
+
+  "drop" should "drop every alternate element  for a drop count of '2'" in {
+    assert(ElevenToTwenty.drop(2, List(1, 2, 3, 4)) == List(1, 3))
+    assert(ElevenToTwenty.drop(2, List("A", "B", "C", "D")) == List("A", "C"))
+    assert(ElevenToTwenty.drop(2, List(11.12, 22.23, 33.34, 44.45)) == List(11.12, 33.34))
+  }
+
+  "drop" should "drop every third element  for a drop count of '3'" in {
+    assert(ElevenToTwenty.drop(3, List(1, 2, 3, 4, 5, 6)) == List(1, 2, 4, 5))
+    assert(ElevenToTwenty.drop(3, List("A", "B", "C", "D", "E", "F")) == List("A", "B", "D", "E"))
+    assert(ElevenToTwenty.drop(3, List(11.12, 22.23, 33.34, 44.45, 55.56, 66.67)) == List(11.12, 22.23, 44.45, 55.56))
+  }
+
 }

@@ -1,6 +1,12 @@
 package problems99
 
 object ElevenToTwenty {
+  def drop[A](x: Int, n: List[A]): Any =
+    if (n == null) throw new IllegalStateException("Cannot drop null list")
+    else if (n.isEmpty) throw new IllegalStateException("Cannot drop empty list")
+    else if (x == 0) n
+    else n.zipWithIndex.filter(e => (e._2 + 1) % x != 0).map(_._1)
+
   def duplicate[A](n: List[A]): List[A] =
     if (n == null) throw new IllegalStateException("Cannot encode null list")
     else if (n.isEmpty) throw new IllegalStateException("Cannot encode empty list")
