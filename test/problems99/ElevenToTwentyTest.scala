@@ -82,4 +82,30 @@ class ElevenToTwentyTest extends AnyFlatSpec {
     assert(ElevenToTwenty.duplicate(List(List(1), List(5))) == List(List(1), List(1), List(5), List(5)))
   }
 
+  "duplicateN" should "throw exception for null list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.duplicateN(1, null))
+  }
+
+  "duplicateN" should "throw exception for empty list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.duplicateN(1, List()))
+  }
+
+  "duplicateN" should "return empty list for a duplicator of 0" in {
+    assert(ElevenToTwenty.duplicateN(0, List(1)) == List())
+    assert(ElevenToTwenty.duplicateN(0, List("A")) == List())
+    assert(ElevenToTwenty.duplicateN(0, List(11.12)) == List())
+  }
+
+  "duplicateN" should "return input list for a duplicator of 2" in {
+    assert(ElevenToTwenty.duplicateN(1, List(1)) == List(1))
+    assert(ElevenToTwenty.duplicateN(1, List("A")) == List("A"))
+    assert(ElevenToTwenty.duplicateN(1, List(11.12)) == List(11.12))
+  }
+
+  "duplicateN" should "return 'duplicate' list for a duplicator of 2" in {
+    assert(ElevenToTwenty.duplicateN(2, List(1)) == ElevenToTwenty.duplicate(List(1)))
+    assert(ElevenToTwenty.duplicateN(2, List("A")) == ElevenToTwenty.duplicate(List("A")))
+    assert(ElevenToTwenty.duplicateN(2, List(11.12)) == ElevenToTwenty.duplicate(List(11.12)))
+  }
+
 }

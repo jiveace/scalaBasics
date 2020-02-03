@@ -6,6 +6,11 @@ object ElevenToTwenty {
     else if (n.isEmpty) throw new IllegalStateException("Cannot encode empty list")
     else n.flatMap(x => List(x, x))
 
+  def duplicateN[A](x: Int, n: List[A]): List[A] =
+    if (n == null) throw new IllegalStateException("Cannot encode null list")
+    else if (n.isEmpty) throw new IllegalStateException("Cannot encode empty list")
+    else n.flatMap(List.fill(x)(_))
+
   def encodeViaSpan[A](n: List[A]): List[(A, Int)] = {
 
     def _encode[A](_n: List[A], accumulator: List[(A, Int)]): List[(A, Int)] = {
