@@ -1,6 +1,14 @@
 package problems99
 
 object ElevenToTwenty {
+  def slice[A](start: Int, end: Int, list: List[A]): List[A] =
+    if (list == null) throw new IllegalStateException("Cannot split null list")
+    else if (list.isEmpty) throw new IllegalStateException("Cannot split empty list")
+    else if (start < 0 || start >= list.length) throw new IndexOutOfBoundsException("Start Index is outwith list ranges")
+    else if (end < 0 || end >= list.length) throw new IndexOutOfBoundsException("End Index is outwith list ranges")
+    else if (end < start) throw new IndexOutOfBoundsException("End Index must not be smaller than start index")
+    else list.take(end + 1).takeRight(end + 1 - start)
+
   def splitInTwain[A](x: Int, n: List[A]): (List[A], List[A]) =
     if (n == null) throw new IllegalStateException("Cannot split null list")
     else if (n.isEmpty) throw new IllegalStateException("Cannot split empty list")

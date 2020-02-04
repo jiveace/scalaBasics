@@ -165,9 +165,9 @@ class ElevenToTwentyTest extends AnyFlatSpec {
   }
 
   "splitInTwain" should "return the existing list and an empty list if split point is > than the list length" in {
-    assert(ElevenToTwenty.splitInTwain(4, List(1, 2, 3)) == (List(), List(1, 2, 3)))
-    assert(ElevenToTwenty.splitInTwain(5, List(1, 2, 3)) == (List(), List(1, 2, 3)))
-    assert(ElevenToTwenty.splitInTwain(6, List(1, 2, 3)) == (List(), List(1, 2, 3)))
+    assert(ElevenToTwenty.splitInTwain(4, List(1, 2, 3)) == (List(1, 2, 3), List()))
+    assert(ElevenToTwenty.splitInTwain(5, List(1, 2, 3)) == (List(1, 2, 3), List()))
+    assert(ElevenToTwenty.splitInTwain(6, List(1, 2, 3)) == (List(1, 2, 3), List()))
   }
 
   "splitInTwain" should "return an the head of the list and the tail of the list if split point is 1" in {
@@ -181,5 +181,37 @@ class ElevenToTwentyTest extends AnyFlatSpec {
     assert(ElevenToTwenty.splitInTwain(4, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C", "D"), List("E", "F")))
     assert(ElevenToTwenty.splitInTwain(5, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C", "D", "E"), List("F")))
     assert(ElevenToTwenty.splitInTwain(6, List("A", "B", "C", "D", "E", "F")) == (List("A", "B", "C", "D", "E", "F"), List()))
+  }
+
+  "slice" should "throw exception for null list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.slice(1, 1, null))
+  }
+
+  "slice" should "throw exception for empty list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.slice(1, 1, List()))
+  }
+
+  "slice" should "throw exception if start point is too large or too small" in {
+    assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(-1, 0, List(1, 2, 3)))
+    assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(4, 0, List(1, 2, 3)))
+  }
+
+  "slice" should "throw exception if end point is too large, a negative number of less than the start index" in {
+    assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(0, 6, List(1, 2, 3)))
+    assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(0, -3, List(1, 2, 3)))
+    assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(2, 1, List(1, 2, 3)))
+  }
+
+  "slice" should "return a single element if both start and end values are equal" in {
+    assert(ElevenToTwenty.slice(0, 0, List("F")) == List("F"))
+    assert(ElevenToTwenty.slice(1, 1, List(3, 4)) == List(4))
+    assert(ElevenToTwenty.slice(5, 5, List(1, 2, 3, 4, 5, 6)) == List(6))
+  }
+
+  "slice" should "return a two elements if both start and end differ by one" in {
+    assert(ElevenToTwenty.slice(0, 1, List("F", "G")) == List("F", "G"))
+    assert(ElevenToTwenty.slice(0, 1, List(3, 4)) == List(3, 4))
+    assert(ElevenToTwenty.slice(4, 5, List(1, 2, 3, 4, 5, 6)) == List(5, 6))
+    assert(ElevenToTwenty.slice(4, 5, List(1, 2, 3, 4, 5, 6, 7, 8, 9)) == List(5, 6))
   }
 }
