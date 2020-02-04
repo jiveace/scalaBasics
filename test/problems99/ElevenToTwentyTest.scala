@@ -197,21 +197,28 @@ class ElevenToTwentyTest extends AnyFlatSpec {
   }
 
   "slice" should "throw exception if end point is too large, a negative number of less than the start index" in {
-    assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(0, 6, List(1, 2, 3)))
+    assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(0, 4, List(1, 2, 3)))
     assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(0, -3, List(1, 2, 3)))
     assertThrows[IndexOutOfBoundsException](ElevenToTwenty.slice(2, 1, List(1, 2, 3)))
   }
 
-  "slice" should "return a single element if both start and end values are equal" in {
-    assert(ElevenToTwenty.slice(0, 0, List("F")) == List("F"))
-    assert(ElevenToTwenty.slice(1, 1, List(3, 4)) == List(4))
-    assert(ElevenToTwenty.slice(5, 5, List(1, 2, 3, 4, 5, 6)) == List(6))
+  "slice" should "return an empty list both start and end values are equal" in {
+    assert(ElevenToTwenty.slice(0, 0, List("F")) == List())
+    assert(ElevenToTwenty.slice(1, 1, List(3, 4)) == List())
+    assert(ElevenToTwenty.slice(5, 5, List(1, 2, 3, 4, 5, 6)) == List())
   }
 
-  "slice" should "return a two elements if both start and end differ by one" in {
-    assert(ElevenToTwenty.slice(0, 1, List("F", "G")) == List("F", "G"))
-    assert(ElevenToTwenty.slice(0, 1, List(3, 4)) == List(3, 4))
-    assert(ElevenToTwenty.slice(4, 5, List(1, 2, 3, 4, 5, 6)) == List(5, 6))
-    assert(ElevenToTwenty.slice(4, 5, List(1, 2, 3, 4, 5, 6, 7, 8, 9)) == List(5, 6))
+  "slice" should "return a single element list if both start and end differ by one" in {
+    assert(ElevenToTwenty.slice(0, 1, List("F", "G")) == List("F"))
+    assert(ElevenToTwenty.slice(0, 1, List(3, 4)) == List(3))
+    assert(ElevenToTwenty.slice(4, 5, List(1, 2, 3, 4, 5, 6)) == List(5))
+    assert(ElevenToTwenty.slice(4, 5, List(1, 2, 3, 4, 5, 6, 7, 8, 9)) == List(5))
+  }
+
+  "slice" should "return a two elements if both start and end differ by two" in {
+    assert(ElevenToTwenty.slice(0, 2, List("F", "G")) == List("F", "G"))
+    assert(ElevenToTwenty.slice(0, 2, List(3, 4)) == List(3, 4))
+    assert(ElevenToTwenty.slice(4, 6, List(1, 2, 3, 4, 5, 6)) == List(5, 6))
+    assert(ElevenToTwenty.slice(4, 6, List(1, 2, 3, 4, 5, 6, 7, 8, 9)) == List(5, 6))
   }
 }
