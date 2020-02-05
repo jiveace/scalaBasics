@@ -1,6 +1,18 @@
 package problems99
 
 object ElevenToTwenty {
+
+  def roll[A](rollBy: Int, n: List[A]): List[A] = {
+    def _roll[A](count: Int, currentList: List[A]): List[A] =
+      if (count > 0) _roll(count - 1, currentList.tail :+ currentList.head)
+      else if (count < 0) _roll(count + 1, currentList.last +: currentList.init)
+      else currentList
+
+    if (n == null) throw new IllegalStateException("Cannot split null list")
+    else if (n.isEmpty) throw new IllegalStateException("Cannot split empty list")
+    else _roll(rollBy, n)
+  }
+
   def slice[A](start: Int, end: Int, list: List[A]): List[A] = {
 
     def _slice[A](cutFromLeft: Int, cutFromRight: Int, _remaining: List[A]): List[A] = (cutFromLeft, cutFromRight, _remaining) match {
@@ -9,7 +21,6 @@ object ElevenToTwenty {
       case (cutFromLeft, cutFromRight, _remaining) => {
         _slice(cutFromLeft - 1, cutFromRight, _remaining.tail)
       }
-
     }
 
     if (list == null) throw new IllegalStateException("Cannot split null list")

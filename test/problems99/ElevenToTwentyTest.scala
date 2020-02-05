@@ -221,4 +221,33 @@ class ElevenToTwentyTest extends AnyFlatSpec {
     assert(ElevenToTwenty.slice(4, 6, List(1, 2, 3, 4, 5, 6)) == List(5, 6))
     assert(ElevenToTwenty.slice(4, 6, List(1, 2, 3, 4, 5, 6, 7, 8, 9)) == List(5, 6))
   }
+
+  "roll" should "throw exception for null list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.roll(1, null))
+  }
+
+  "roll" should "throw exception for empty list input" in {
+    assertThrows[IllegalStateException](ElevenToTwenty.roll(1, List()))
+  }
+
+  "roll" should "return input list when rollBy is 1" in {
+    assert(ElevenToTwenty.roll(1, List("x")) == List("x"))
+  }
+
+  "roll" should "roll forward when rollBy is positive" in {
+    assert(ElevenToTwenty.roll(0, List("x", "y", "z")) == List("x", "y", "z"))
+    assert(ElevenToTwenty.roll(1, List("x", "y", "z")) == List("y", "z", "x"))
+    assert(ElevenToTwenty.roll(2, List("x", "y", "z")) == List("z", "x", "y"))
+    assert(ElevenToTwenty.roll(3, List("x", "y", "z")) == List("x", "y", "z"))
+    assert(ElevenToTwenty.roll(4, List("x", "y", "z")) == List("y", "z", "x"))
+  }
+
+  "roll" should "roll backwards when rollBy is nagative" in {
+    assert(ElevenToTwenty.roll(-0, List(1,2,3)) == List(1,2,3))
+    assert(ElevenToTwenty.roll(-1, List(1,2,3)) == List(3,1,2))
+    assert(ElevenToTwenty.roll(-2, List(1,2,3)) == List(2,3,1))
+    assert(ElevenToTwenty.roll(-3, List(1,2,3)) == List(1,2,3))
+    assert(ElevenToTwenty.roll(-4, List(1,2,3)) == List(3,1,2))
+  }
+
 }
