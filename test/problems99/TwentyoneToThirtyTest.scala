@@ -35,10 +35,27 @@ class TwentyoneToThirtyTest extends AnyFlatSpec {
   }
 
   "lotto" should "randomly select 6 unique elements from within a given range" in {
-    val result: List[Int] = TwentyoneToThirty.lotto(6, (1, 49))
-    assert(result.length == 6)
+    val (lowerBound, upperBound, n) = (1, 49, 6)
+    val result: List[Int] = TwentyoneToThirty.lotto(n, (lowerBound, upperBound))
+    assert(result.length == n)
     assert(result.length == result.toSet.size)
-    assert(result.count(x => x > 1 && x < 49) == 6)
+    assert(result.count(x => x >= lowerBound && x <= upperBound) == n)
     println(result)
+  }
+
+  "randomise" should "return all elements of the input list in a random order" in {
+    def _test[A](input: List[A]) = {
+      val result = TwentyoneToThirty.randomise(input);
+      assert(result.length == input.length)
+      assert(result.length == result.toSet.size)
+      assert(input.count(x => result.contains(x)) == input.length)
+      println(result)
+    }
+
+    _test(List())
+    _test(TwentyoneToThirty.range(1, 100))
+    _test(TwentyoneToThirty.range(50, 100))
+    _test(List("A", "B", "C", "D", "E", "F", "G"))
+    _test(List("Egg", "Bag", "Of", "Ham", "Global", "Gold", "LindyHopIchiban"))
   }
 }

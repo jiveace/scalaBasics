@@ -3,6 +3,11 @@ package problems99
 import scala.util.Random
 
 object TwentyoneToThirty {
+  def randomise[A](input: List[A]): List[A] = {
+    randomSelect(input, input.length)
+  }
+
+
   def lotto(n: Int, rangeValues: (Int, Int)): List[Int] =
     randomSelect(range(rangeValues._1, rangeValues._2), n)
 
@@ -10,7 +15,7 @@ object TwentyoneToThirty {
     def _randomSelect[A](acc: List[A], pool: List[A]): List[A] =
       if (acc.size == x) acc
       else {
-        val (remainingList, plucked) = ElevenToTwenty.removeAt(pool, Random.nextInt(pool.size))
+        val (remainingList, plucked) = ElevenToTwenty.removeAt(pool, Random.nextInt(pool.size) + 1)
         _randomSelect(acc :+ plucked, remainingList)
       }
 
