@@ -1,6 +1,9 @@
 package problems99
 
 object ElevenToTwenty {
+  def removeAt[A](list: List[A], x: Int): (List[A], A) =
+    (list.take(x - 1) ::: list.takeRight(list.length - x), list(x - 1))
+
 
   def roll[A](rollBy: Int, n: List[A]): List[A] = {
     def _roll[A](count: Int, currentList: List[A]): List[A] =

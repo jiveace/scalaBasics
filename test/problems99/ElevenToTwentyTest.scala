@@ -246,11 +246,16 @@ class ElevenToTwentyTest extends AnyFlatSpec {
   }
 
   "roll" should "roll backwards when rollBy is nagative" in {
-    assert(ElevenToTwenty.roll(-0, List(1,2,3)) == List(1,2,3))
-    assert(ElevenToTwenty.roll(-1, List(1,2,3)) == List(3,1,2))
-    assert(ElevenToTwenty.roll(-2, List(1,2,3)) == List(2,3,1))
-    assert(ElevenToTwenty.roll(-3, List(1,2,3)) == List(1,2,3))
-    assert(ElevenToTwenty.roll(-4, List(1,2,3)) == List(3,1,2))
+    assert(ElevenToTwenty.roll(-0, List(1, 2, 3)) == List(1, 2, 3))
+    assert(ElevenToTwenty.roll(-1, List(1, 2, 3)) == List(3, 1, 2))
+    assert(ElevenToTwenty.roll(-2, List(1, 2, 3)) == List(2, 3, 1))
+    assert(ElevenToTwenty.roll(-3, List(1, 2, 3)) == List(1, 2, 3))
+    assert(ElevenToTwenty.roll(-4, List(1, 2, 3)) == List(3, 1, 2))
   }
 
+  "removeAt" should "remove kth element from a list" in {
+    val result = ElevenToTwenty.removeAt(List("a", "b", "c", "d"), 2)
+    assert(result._1 == (List("a", "c", "d")))
+    assert(result._2 == "b")
+  }
 }
