@@ -230,12 +230,15 @@ class ElevenToTwentyTest extends AnyFlatSpec {
     assertThrows[IllegalStateException](ElevenToTwenty.roll(1, List()))
   }
 
-  "roll" should "return input list when rollBy is 1" in {
+  "roll" should "return input list when list size is 1" in {
     assert(ElevenToTwenty.roll(1, List("x")) == List("x"))
   }
 
-  "roll" should "roll forward when rollBy is positive" in {
+  "roll" should "return input list when rollBy is 0" in {
     assert(ElevenToTwenty.roll(0, List("x", "y", "z")) == List("x", "y", "z"))
+  }
+
+  "roll" should "roll forward when rollBy is positive" in {
     assert(ElevenToTwenty.roll(1, List("x", "y", "z")) == List("y", "z", "x"))
     assert(ElevenToTwenty.roll(2, List("x", "y", "z")) == List("z", "x", "y"))
     assert(ElevenToTwenty.roll(3, List("x", "y", "z")) == List("x", "y", "z"))
