@@ -58,4 +58,21 @@ class TwentyoneToThirtyTest extends AnyFlatSpec {
     _test(List("A", "B", "C", "D", "E", "F", "G"))
     _test(List("Egg", "Bag", "Of", "Ham", "Global", "Gold", "LindyHopIchiban"))
   }
+
+  "combinations" must "return an empty list for empty input" in {
+    assert(TwentyoneToThirty.combinations(List(), 1) == List())
+  }
+
+  "combinations" must "return the input list for a single element list" in {
+    TwentyoneToThirty.combinations(List(1), 1)
+    TwentyoneToThirty.combinations(List("A"), 1)
+    assert(TwentyoneToThirty.combinations(List(1), 1) == List(List(1)))
+    assert(TwentyoneToThirty.combinations(List("A"), 1) == List(List("A")))
+
+  }
+
+  "combinations" must "return 20 combinations for 3 combos of a 6 element list" in {
+    assert(TwentyoneToThirty.combinations(List("a", "b", "c", "d", "e", "f"), 3).size == 20)
+    println(TwentyoneToThirty.combinations(List("a", "b", "c", "d", "e", "f"), 3))
+  }
 }

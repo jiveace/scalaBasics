@@ -3,6 +3,16 @@ package problems99
 import scala.util.Random
 
 object TwentyoneToThirty {
+
+  // 26
+  def combinations[A](list: List[A], x: Int): List[List[A]] = {
+    list match {
+      case Nil => List()
+      case h :: tail if x == 1 => list.map(List(_))
+      case h :: tail => combinations(tail, x - 1).map(h :: _) ::: combinations(tail, x)
+    }
+  }
+
   // 25
   def randomise[A](input: List[A]): List[A] = {
     randomSelect(input, input.length)
