@@ -44,33 +44,48 @@ class MathsTest extends AnyFlatSpec {
     assert(Maths.primeFactors(3) == List(3))
   }
 
-  "primeFactors" should "return [2,2] for 4" in {
+  it should "return [2,2] for 4" in {
     assert(Maths.primeFactors(4) == List(2, 2))
   }
-  "primeFactors" should "return [2,2,2] for 8" in {
+  it should "return [2,2,2] for 8" in {
     assert(Maths.primeFactors(8) == List(2, 2, 2))
   }
 
-  "primeFactors" should "return [2,2,3] for 12" in {
+  it should "return [2,2,3] for 12" in {
     assert(Maths.primeFactors(12) == List(2, 2, 3))
   }
 
-  "primeFactors" should "return [3,3,5,7] for 315" in {
+  it should "return [3,3,5,7] for 315" in {
     assert(Maths.primeFactors(315) == List(3, 3, 5, 7))
   }
 
-  "primeFactors" should "return [3,11] for 33" in {
+  it should "return [3,11] for 33" in {
     assert(Maths.primeFactors(33) == List(3, 11))
   }
 
-  "primeFactors" should "return factors for large values" in {
+  it should "return factors for 1 million" in {
     assert(Maths.primeFactors(1_000_001) == List(101, 9901))
+  }
+
+  it should "return factors for 10 million" in {
     assert(Maths.primeFactors(10_000_001) == List(11, 909091))
+  }
+
+  it should "return factors for 100 million" in {
     assert(Maths.primeFactors(100_000_001) == List(17, 5882353))
-    assert(Maths.primeFactors(1_000_000_001) == List(7, 11, 13, 19, 52579))
+  }
+
+  it should "return factors for one under a billion" in {
     assert(Maths.primeFactors(999_999_999) == List(3, 3, 3, 3, 37, 333667))
   }
 
+  it should "return factors for one over a billion" in {
+    assert(Maths.primeFactors(1_000_000_001) == List(7, 11, 13, 19, 52579))
+  }
+
+  it should "return factors for biggest non prime Int" in {
+    assert(Maths.primeFactors(Integer.MAX_VALUE - 1) == List(2, 3, 3, 7, 11, 31, 151, 331))
+  }
 
   def assertFalse(bool: Boolean): Unit = {
     assert(!bool)
