@@ -63,8 +63,12 @@ class MathsTest extends AnyFlatSpec {
     assert(Maths.primeFactors(33) == List(3, 11))
   }
 
-  "primeFactors" should "return [101, 9901] for 1_000_001" in {
+  "primeFactors" should "return factors for large values" in {
     assert(Maths.primeFactors(1_000_001) == List(101, 9901))
+    assert(Maths.primeFactors(10_000_001) == List(11, 909091))
+    assert(Maths.primeFactors(100_000_001) == List(17, 5882353))
+    assert(Maths.primeFactors(1_000_000_001) == List(7, 11, 13, 19, 52579))
+    assert(Maths.primeFactors(999_999_999) == List(3, 3, 3, 3, 37, 333667))
   }
 
 
