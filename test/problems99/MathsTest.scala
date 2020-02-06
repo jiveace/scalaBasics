@@ -38,8 +38,39 @@ class MathsTest extends AnyFlatSpec {
     assert(Maths.isPrime(999961))
   }
 
+  "primeFactors" should "return [x] for low values" in {
+    assert(Maths.primeFactors(1) == List(1))
+    assert(Maths.primeFactors(2) == List(2))
+    assert(Maths.primeFactors(3) == List(3))
+  }
+
+  "primeFactors" should "return [2,2] for 4" in {
+    assert(Maths.primeFactors(4) == List(2, 2))
+  }
+  "primeFactors" should "return [2,2,2] for 8" in {
+    assert(Maths.primeFactors(8) == List(2, 2, 2))
+  }
+
+  "primeFactors" should "return [2,2,3] for 12" in {
+    assert(Maths.primeFactors(12) == List(2, 2, 3))
+  }
+
+  "primeFactors" should "return [3,3,5,7] for 315" in {
+    assert(Maths.primeFactors(315) == List(3, 3, 5, 7))
+  }
+
+  "primeFactors" should "return [3,11] for 33" in {
+    assert(Maths.primeFactors(33) == List(3, 11))
+  }
+
+  "primeFactors" should "return [101, 9901] for 1_000_001" in {
+    assert(Maths.primeFactors(1_000_001) == List(101, 9901))
+  }
+
+
   def assertFalse(bool: Boolean): Unit = {
     assert(!bool)
   }
+
 
 }
