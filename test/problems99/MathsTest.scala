@@ -116,9 +116,27 @@ class MathsTest extends AnyFlatSpec {
     assert(Maths.greatestCommonDenominator(36, 63) == 9)
   }
 
+  "coprime" should "return true for 35 and 64" in {
+    assert(Maths.coprime(35, 64))
+  }
+
+  "totient" should "return 4 for input 10" in {
+    assert(Maths.totient(10) == 4)
+  }
+
+  "phi" should "return 4 for input 10" in {
+    assert(Maths.phi(10) == 4)
+  }
+
+  "phi" should "return 6 for input 9" in {
+    assert(Maths.phi(9) == 6)
+  }
+
+  "phi" should "return 60 for input 99" in {
+    assert(Maths.phi(99) == 60)
+  }
+
   def assertFalse(bool: Boolean): Unit = {
     assert(!bool)
   }
-
-
 }

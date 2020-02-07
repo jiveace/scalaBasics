@@ -3,6 +3,19 @@ package problems99
 import scala.annotation.tailrec
 
 object Maths {
+
+  def phi(x: Int): Int = {
+    primeFactorsMult(x).map { case (p1, m1) => (p1 - 1) * Math.pow(p1, m1 - 1) }.product.toInt
+  }
+
+
+  def totient(x: Int): Int = {
+    (1 to x).count(coprime(x, _))
+  }
+
+  def coprime(a: Int, b: Int): Boolean =
+    greatestCommonDenominator(a, b) == 1
+
   def greatestCommonDenominator(x: Int, y: Int): Int = {
     @tailrec
     def _gcd(candidate: Int): Int =
