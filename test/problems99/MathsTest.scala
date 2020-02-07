@@ -87,6 +87,18 @@ class MathsTest extends AnyFlatSpec {
     assert(Maths.primeFactors(Integer.MAX_VALUE - 1) == List(2, 3, 3, 7, 11, 31, 151, 331))
   }
 
+  "primeFactorsMult" should "return factors for biggest non prime Int as tuples" in {
+    assert(Maths.primeFactorsMult(Integer.MAX_VALUE - 1) == List((2, 1), (3, 2), (7, 1), (11, 1), (31, 1), (151, 1), (331, 1)))
+  }
+
+  "primes" should "return all primes for range 1 to 10" in {
+    assert(Maths.primes(1 to 10) == List(1, 2, 3, 5, 7))
+  }
+
+  it should "return all primes for range 7 to 31" in {
+    assert(Maths.primes(7 to 31) == List(7, 11, 13, 17, 19, 23, 29, 31))
+  }
+
   def assertFalse(bool: Boolean): Unit = {
     assert(!bool)
   }
