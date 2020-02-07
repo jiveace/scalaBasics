@@ -112,6 +112,10 @@ class MathsTest extends AnyFlatSpec {
     assert(result == List((10, (3, 7)), (12, (5, 7)), (14, (3, 11)), (16, (3, 13)), (18, (5, 13)), (20, (3, 17))))
   }
 
+  "greatestCommonDenominator" should "return 9 for 36 and 63" in {
+    assert(Maths.greatestCommonDenominator(36, 63) == 9)
+  }
+
   def assertFalse(bool: Boolean): Unit = {
     assert(!bool)
   }

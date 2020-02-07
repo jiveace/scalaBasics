@@ -3,6 +3,15 @@ package problems99
 import scala.annotation.tailrec
 
 object Maths {
+  def greatestCommonDenominator(x: Int, y: Int): Int = {
+    @tailrec
+    def _gcd(candidate: Int): Int =
+      if (x % candidate == 0 && y % candidate == 0) candidate
+      else _gcd(candidate - 1)
+
+    _gcd(Math.min(x, y))
+  }
+
   def goldbachList(range: Range): List[(Int, (Int, Int))] = {
 
     range.filter(_ % 2 == 0).filter(_ > 2).map(x => {
