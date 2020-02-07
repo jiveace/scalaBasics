@@ -3,7 +3,26 @@ package problems99
 import scala.annotation.tailrec
 
 object Maths {
-  def primes(range: Range):List[Int] =
+  def goldbachList(range: Range): List[(Int, (Int, Int))] = {
+
+    range.filter(_ % 2 == 0).filter(_ > 2).map(x => {
+      val gl = goldbach(x)
+      (x, (gl.head, gl.last))
+    }).toList
+  }
+
+
+  def goldbach(x: Int): List[Int] = {
+
+    @tailrec
+    def _goldbach(a: Int, b: Int): List[Int] =
+      if (isPrime(a) && isPrime(b)) List(a, b)
+      else _goldbach(a + 1, b - 1)
+
+    _goldbach(2, x - 2)
+  }
+
+  def primes(range: Range): List[Int] =
     range.filter(isPrime(_)).toList
 
 
