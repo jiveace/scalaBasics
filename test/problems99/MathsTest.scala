@@ -184,6 +184,29 @@ class MathsTest extends AnyFlatSpec {
     assert(expected == result)
   }
 
+  "grayCode" should "work for n=1" in {
+    val graySequence = Maths.gray(1)
+    assert(graySequence == List("0", "1"))
+  }
+
+  "grayCode" should "work for n=2" in {
+    val graySequence = Maths.gray(2)
+    assert(graySequence == List("00", "01", "11", "10"))
+  }
+
+  "grayCode" should "work for n=3" in {
+    val graySequence = Maths.gray(3)
+    assert(graySequence == List("000", "001", "011", "010", "110", "111", "101", "100"))
+  }
+
+  "grayCode" should "work for n=4" in {
+    val graySequence = Maths.gray(4)
+    assert(graySequence == List("0000", "0001", "0011", "0010",
+      "0110", "0111", "0101", "0100",
+      "1100", "1101", "1111", "1110",
+      "1010", "1011", "1001", "1000"))
+  }
+
   def assertFalse(bool: Boolean): Unit = {
     assert(!bool)
   }

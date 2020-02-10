@@ -4,6 +4,23 @@ import scala.annotation.tailrec
 
 object Maths {
 
+  def gray(n: Int): List[String] = {
+    /*
+    Algorithm:
+     1. Start with a gray code sequence of n-1
+     2. Reverse the list
+     3. Concatenate original and reverse lists
+     4. Prepend original list with 0 and reverse list with 1
+     */
+    if (n == 1) {
+      List("0", "1")
+    } else {
+      val original = gray(n - 1)
+      val reversed = original.reverse
+      original.map("0" + _) ++ reversed.map("1" + _)
+    }
+  }
+
   def table(predicate: (Boolean, Boolean) => Boolean): String = {
     def truthLine(a: Boolean, b: Boolean) =
       f"$a%-10s $b%-10s " + predicate(a, b) + "\n"
