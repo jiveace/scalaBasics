@@ -4,6 +4,26 @@ import scala.annotation.tailrec
 
 object Maths {
 
+  def table(predicate: (Boolean, Boolean) => Boolean): String = {
+    def truthLine(a: Boolean, b: Boolean) =
+      f"$a%-10s $b%-10s " + predicate(a, b) + "\n"
+
+    val header = "A          B          result\n"
+    val tt = truthLine(true, true)
+    val tf = truthLine(true, false)
+    val ft = truthLine(false, true)
+    val ff = truthLine(false, false)
+    header + tt + tf + ft + ff
+  }
+
+  def and(a: Boolean, b: Boolean): Boolean = a && b
+
+  def nand(a: Boolean, b: Boolean): Boolean = !(a && b)
+
+  def or(a: Boolean, b: Boolean): Boolean = a || b
+
+  def nor(a: Boolean, b: Boolean): Boolean = !(a || b)
+
   def phi(x: Int): Int = {
     primeFactorsMult(x).map { case (p1, m1) => (p1 - 1) * Math.pow(p1, m1 - 1) }.product.toInt
   }

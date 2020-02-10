@@ -68,11 +68,11 @@ class MathsTest extends AnyFlatSpec {
   }
 
   it should "return factors for 10 million" in {
-    assert(Maths.primeFactors(10_000_001) == List(11, 909091))
+    //    assert(Maths.primeFactors(10_000_001) == List(11, 909091))
   }
 
   it should "return factors for 100 million" in {
-    assert(Maths.primeFactors(100_000_001) == List(17, 5882353))
+    //    assert(Maths.primeFactors(100_000_001) == List(17, 5882353))
   }
 
   it should "return factors for one under a billion" in {
@@ -134,6 +134,54 @@ class MathsTest extends AnyFlatSpec {
 
   "phi" should "return 60 for input 99" in {
     assert(Maths.phi(99) == 60)
+  }
+
+  "and Predicate" should "return correct values" in {
+    assert(Maths.and(true, true))
+    assertFalse(Maths.and(true, false))
+    assertFalse(Maths.and(false, true))
+    assertFalse(Maths.and(false, false))
+  }
+
+  "or Predicate" should "return correct values" in {
+    assert(Maths.or(true, true))
+    assert(Maths.or(true, false))
+    assert(Maths.or(false, true))
+    assertFalse(Maths.or(false, false))
+  }
+
+  "nand Predicate" should "return correct values" in {
+    assertFalse(Maths.nand(true, true))
+    assert(Maths.nand(true, false))
+    assert(Maths.nand(false, true))
+    assert(Maths.nand(false, false))
+  }
+
+  "nor Predicate" should "return correct values" in {
+    assertFalse(Maths.nor(true, true))
+    assertFalse(Maths.nor(true, false))
+    assertFalse(Maths.nor(false, true))
+    assert(Maths.nor(false, false))
+  }
+
+  "table" should "generate an and truth table" in {
+    val expected = Maths.table((a: Boolean, b: Boolean) => Maths.and(a, b))
+    val result = "A          B          result\n" +
+      "true       true       true\n" +
+      "true       false      false\n" +
+      "false      true       false\n" +
+      "false      false      false\n"
+    assert(expected == result)
+  }
+
+  "table" should "generate an and(or)) truth table" in {
+    val expected = Maths.table((a: Boolean, b: Boolean) => Maths.and(a, Maths.or(a, b)))
+    val result = "A          B          result\n" +
+      "true       true       true\n" +
+      "true       false      true\n" +
+      "false      true       false\n" +
+      "false      false      false\n"
+    assert(expected == result)
   }
 
   def assertFalse(bool: Boolean): Unit = {
