@@ -5,20 +5,35 @@ import scala.annotation.tailrec
 object Maths {
 
   def gray(n: Int): List[String] = {
-    /*
-    Algorithm:
-     1. Start with a gray code sequence of n-1
-     2. Reverse the list
-     3. Concatenate original and reverse lists
-     4. Prepend original list with 0 and reverse list with 1
-     */
-    if (n == 1) {
-      List("0", "1")
-    } else {
+    if (n == 1) List("0", "1")
+    else {
       val original = gray(n - 1)
-      val reversed = original.reverse
-      original.map("0" + _) ++ reversed.map("1" + _)
+      val mirrored = original.reverse
+      original.map("0" + _) ::: mirrored.map("1" + _)
     }
+  }
+
+  def gray_original(n: Int): List[String] = {
+    def switch(c: Char): Char = {
+      c match {
+        case '0' => '1'
+        case '1' => '0'
+      }
+    }
+
+    def switchBit(s: String, bit: Int) = {
+      s.take(bit - 1) + switch(s.charAt(bit - 1)) + s.takeRight(s.length - bit)
+    }
+
+    def _gray(list: List[String], acc: Int): List[String] = {
+      val candidate = switchBit(list.last, acc)
+
+      if (list.length == Math.pow(2, n)) list
+      else if (!list.contains(candidate)) _gray(list :+ candidate, n)
+      else _gray(list, acc - 1)
+    }
+
+    _gray(List("0" * n), n)
   }
 
   def table(predicate: (Boolean, Boolean) => Boolean): String = {
