@@ -12,9 +12,9 @@ class SocialNetwork(people: Map[String, List[String]]) {
   def add(person: (String, List[String])) = new SocialNetwork(people + ("Jane" -> List()))
 
   def friendCount(name: String): Int =
-    if(people(name) == null) throw new NoSuchElementException
+    if (people(name) == null) throw new NoSuchElementException
     else people(name).length
 
   def mostFriends() =
-    "Jane"
+    people.maxBy(_._2.length)._1
 }
