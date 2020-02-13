@@ -8,6 +8,8 @@ object Roman {
       case "I" => 1
       case "V" => 5
       case "X" => 10
+      case "L" => 50
+      case "C" => 100
       case _ => throw new IllegalStateException("Unsupported denomination")
     }
 
@@ -21,8 +23,10 @@ object Roman {
           throw new IllegalStateException(s"Multiple ${n}s are not allowed")
 
       checkForMultiplesOf("V")
+      checkForMultiplesOf("L")
       checkForTenConsecutive("I")
       checkForTenConsecutive("X")
+      checkForTenConsecutive("C")
       str
     }
 
