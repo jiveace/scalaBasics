@@ -288,24 +288,22 @@ class RomanTest extends AnyFunSpec {
       }
     }
 
-    describe("Saturation Tests Using Arbitrary Values") {
-//      3068
-//      2270
-//      3865
-//      1053
-//      1617
-//      1341
-//      413
-//      2650
-//      701
-//      2014
-//      113
-//      1085
-//      1315
-//      1562
-//      2776
-//      assert(toInt("CM") == 900)
+    it("Passes saturation Tests Using Arbitrary Values") {
+      assert(toInt("CXIII") == 113)
+      assert(toInt("CCCCXIII") == 413)
+      assert(toInt("DCCI") == 701)
+      assert(toInt("MLIII") == 1053)
+      assert(toInt("MLXXXV") == 1085)
+      assert(toInt("MCCCXV") == 1315)
+      assert(toInt("MCCCXLI") == 1341)
+      assert(toInt("MDLXII") == 1562)
+      assert(toInt("MDCXVII") == 1617)
+      assert(toInt("MMXIV") == 2014)
+      assert(toInt("MMCCLXX") == 2270)
+      assert(toInt("MMDCL") == 2650)
+      assert(toInt("MMDCCLXXIV") == 2774)
+      assert(toInt("MMMLXVIII") == 3068)
+      assert(toInt("MMMDCCCLXV") == 3865)
     }
-
-    }
+  }
 }
