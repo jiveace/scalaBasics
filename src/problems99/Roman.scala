@@ -10,6 +10,7 @@ object Roman {
       case "X" => 10
       case "L" => 50
       case "C" => 100
+      case "D" => 500
       case _ => throw new IllegalStateException("Unsupported denomination")
     }
 
@@ -24,6 +25,7 @@ object Roman {
 
       checkForMultiplesOf("V")
       checkForMultiplesOf("L")
+      checkForMultiplesOf("D")
       checkForTenConsecutive("I")
       checkForTenConsecutive("X")
       checkForTenConsecutive("C")

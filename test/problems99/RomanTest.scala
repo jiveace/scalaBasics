@@ -106,7 +106,7 @@ class RomanTest extends AnyFlatSpec {
     assert(toInt("LXXVIII") == 78)
   }
 
-  "toInt" must "count L preceded by a smaller numeral by Xs, Vs and Is" in {
+  "toInt" must "count L preceded by a smaller numeral" in {
     assert(toInt("IL") == 49)
     assert(toInt("VL") == 45)
     assert(toInt("XL") == 40)
@@ -149,8 +149,61 @@ class RomanTest extends AnyFlatSpec {
     assert(toInt("CCLXXVIII") == 278)
   }
 
+  "toInt" must "count C preceded by a smaller numeral" in {
+    assert(toInt("IC") == 99)
+    assert(toInt("VC") == 95)
+    assert(toInt("XC") == 90)
+    assert(toInt("LC") == 50)
+  }
+  "toInt" must "count D as five hundred" in {
+    assert(toInt("D") == 500)
+  }
+
+  "toInt" must "throw an exception for multiple Ds" in {
+    assertThrows[IllegalStateException](toInt("DD"))
+    assertThrows[IllegalStateException](toInt("DID"))
+  }
 
 
+  "toInt" must "count D followed by Is" in {
+    assert(toInt("DI") == 501)
+    assert(toInt("DIIII") == 504)
+    assert(toInt("DIIIIIIII") == 508)
+  }
+
+  "toInt" must "count D followed by Vs and Is" in {
+    assert(toInt("DVI") == 506)
+    assert(toInt("DIV") == 504)
+    assert(toInt("DVIII") == 508)
+  }
+
+  "toInt" must "count D followed by Xs, Vs and Is" in {
+    assert(toInt("DXVI") == 516)
+    assert(toInt("DXXIV") == 524)
+    assert(toInt("DXXVIII") == 528)
+  }
+
+  "toInt" must "count D followed by Ls, Xs, Vs and Is" in {
+    assert(toInt("DLXVI") == 566)
+    assert(toInt("DLXXIV") == 574)
+    assert(toInt("DLXXVIII") == 578)
+  }
+
+
+  "toInt" must "count D followed by Cs, Ls, Xs, Vs and Is" in {
+    assert(toInt("DCLXVI") == 666)
+    assert(toInt("DCLXXIV") == 674)
+    assert(toInt("DCLXXVIII") == 678)
+    assert(toInt("DCCLXXVIII") == 778)
+  }
+
+  "toInt" must "count D preceded by a smaller numeral" in {
+    assert(toInt("ID") == 499)
+    assert(toInt("VD") == 495)
+    assert(toInt("XD") == 490)
+    assert(toInt("LD") == 450)
+    assert(toInt("CD") == 400)
+  }
 
 
 
@@ -159,6 +212,8 @@ class RomanTest extends AnyFlatSpec {
     "VX" == "BOOM"
     "XXL" == "BOOM"
     "XLC" == "BOOM"
+    "LCD" == "BOOM"
+    // solve by comparing x and y.  if x < y, all good.  Otherwise it must be one of six permitted subtractive pairs
   }
 
 
