@@ -119,9 +119,7 @@ class RomanTest extends AnyFunSpec {
         assert(toInt("LXXVIII") == 78)
       }
 
-      it("must count L preceded by a smaller numeral") {
-        assert(toInt("IL") == 49)
-        assert(toInt("VL") == 45)
+      it("must count L preceded by an X") {
         assert(toInt("XL") == 40)
       }
     }
@@ -165,11 +163,8 @@ class RomanTest extends AnyFunSpec {
         assert(toInt("CCLXXVIII") == 278)
       }
 
-      it("must count C preceded by a smaller numeral") {
-        assert(toInt("IC") == 99)
-        assert(toInt("VC") == 95)
+      it("must count C preceded by an X") {
         assert(toInt("XC") == 90)
-        assert(toInt("LC") == 50)
       }
     }
 
@@ -216,11 +211,7 @@ class RomanTest extends AnyFunSpec {
         assert(toInt("DCCLXXVIII") == 778)
       }
 
-      it("must count D preceded by a smaller numeral") {
-        assert(toInt("ID") == 499)
-        assert(toInt("VD") == 495)
-        assert(toInt("XD") == 490)
-        assert(toInt("LD") == 450)
+      it("must count D preceded by a D numeral") {
         assert(toInt("CD") == 400)
       }
     }
@@ -269,26 +260,52 @@ class RomanTest extends AnyFunSpec {
         assert(toInt("MMMDCCLXXVIII") == 3778)
       }
 
-      it("must count M preceded by a smaller numeral") {
-        assert(toInt("IM") == 999)
-        assert(toInt("VM") == 995)
-        assert(toInt("XM") == 990)
-        assert(toInt("LM") == 950)
+      it("must count M preceded by a C numeral") {
         assert(toInt("CM") == 900)
-        assert(toInt("DM") == 500)
       }
     }
 
     describe("Illegally Ordered Input Numerals") {
 
       it("must throw an exception for unordered numerals") {
-        "IIV" == "BOOM"
-        "VX" == "BOOM"
-        "XXL" == "BOOM"
-        "XLC" == "BOOM"
-        "LCD" == "BOOM"
-        // solve by comparing x and y.  if x < y, all good.  Otherwise it must be one of six permitted subtractive pairs
+        assertThrows[IllegalStateException](toInt("VX"))
+        assertThrows[IllegalStateException](toInt("XLC"))
+        assertThrows[IllegalStateException](toInt("LCD"))
+        assertThrows[IllegalStateException](toInt("CDM"))
+        assertThrows[IllegalStateException](toInt("IIV"))
+        assertThrows[IllegalStateException](toInt("XXL"))
+        assertThrows[IllegalStateException](toInt("CCM"))
+        assertThrows[IllegalStateException](toInt("IM"))
+      }
+
+      it("must not throw an exception for the 6 valid subtractive pairs") {
+        toInt("IV")
+        toInt("IX")
+        toInt("XL")
+        toInt("XC")
+        toInt("CD")
+        toInt("CM")
       }
     }
-  }
+
+    describe("Saturation Tests Using Arbitrary Values") {
+//      3068
+//      2270
+//      3865
+//      1053
+//      1617
+//      1341
+//      413
+//      2650
+//      701
+//      2014
+//      113
+//      1085
+//      1315
+//      1562
+//      2776
+//      assert(toInt("CM") == 900)
+    }
+
+    }
 }
