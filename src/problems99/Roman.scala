@@ -2,16 +2,24 @@ package problems99
 
 object Roman {
 
+  val I = "I"
+  val V = "V"
+  val X = "X"
+  val L = "L"
+  val C = "C"
+  val D = "D"
+  val M = "M"
+
   def toInt(romans: String) = {
 
     def mapDigit(str: String): Int = str match {
-      case "I" => 1
-      case "V" => 5
-      case "X" => 10
-      case "L" => 50
-      case "C" => 100
-      case "D" => 500
-      case "M" => 1000
+      case I => 1
+      case V => 5
+      case X => 10
+      case L => 50
+      case C => 100
+      case D => 500
+      case M => 1000
       case _ => throw new IllegalStateException("Unsupported denomination")
     }
 
@@ -24,12 +32,12 @@ object Roman {
         if (str.split("").count(_ == n) > 1)
           throw new IllegalStateException(s"Multiple ${n}s are not allowed")
 
-      checkForMultiplesOf("V")
-      checkForMultiplesOf("L")
-      checkForMultiplesOf("D")
-      checkForTenConsecutive("I")
-      checkForTenConsecutive("X")
-      checkForTenConsecutive("C")
+      checkForMultiplesOf(V)
+      checkForMultiplesOf(L)
+      checkForMultiplesOf(D)
+      checkForTenConsecutive(I)
+      checkForTenConsecutive(X)
+      checkForTenConsecutive(C)
       str
     }
 
