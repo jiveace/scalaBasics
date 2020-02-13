@@ -82,7 +82,6 @@ class RomanTest extends AnyFunSpec {
         assert(toInt("XVIII") == 18)
       }
 
-
       it("must not allow more than 9 consecutive Xs") {
         assert(toInt("XXXXXXXXX") == 90)
         assertThrows[IllegalStateException](toInt("XXXXXXXXXX"))
@@ -279,6 +278,7 @@ class RomanTest extends AnyFunSpec {
       }
 
       it("must not throw an exception for the 6 valid subtractive pairs") {
+        // Subtractive pairs are the only time it is permissable for numerals to appear before one of greater value
         toInt("IV")
         toInt("IX")
         toInt("XL")
