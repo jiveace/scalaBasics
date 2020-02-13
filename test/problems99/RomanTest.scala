@@ -14,10 +14,10 @@ class RomanTest extends AnyFlatSpec {
   }
 
   "toInt" must "throw exception for unsupported denomination" in {
-    assertThrows[IllegalStateException](toInt("G") == 0)
-    assertThrows[IllegalStateException](toInt("U") == 0)
+    assertThrows[IllegalStateException](toInt("P") == 0)
     assertThrows[IllegalStateException](toInt("A") == 0)
-    assertThrows[IllegalStateException](toInt("M") == 0)
+    assertThrows[IllegalStateException](toInt("R") == 0)
+    assertThrows[IllegalStateException](toInt("T") == 0)
   }
 
   "toInt" must "count Is properly" in {
@@ -155,6 +155,7 @@ class RomanTest extends AnyFlatSpec {
     assert(toInt("XC") == 90)
     assert(toInt("LC") == 50)
   }
+
   "toInt" must "count D as five hundred" in {
     assert(toInt("D") == 500)
   }
@@ -203,6 +204,57 @@ class RomanTest extends AnyFlatSpec {
     assert(toInt("XD") == 490)
     assert(toInt("LD") == 450)
     assert(toInt("CD") == 400)
+  }
+
+  "toInt" must "count M as one thousand" in {
+    assert(toInt("M") == 1000)
+  }
+
+  "toInt" must "count M followed by Is" in {
+    assert(toInt("MI") == 1001)
+    assert(toInt("MIIII") == 1004)
+    assert(toInt("MIIIIIIII") == 1008)
+  }
+
+  "toInt" must "count M followed by Vs and Is" in {
+    assert(toInt("MVI") == 1006)
+    assert(toInt("MIV") == 1004)
+    assert(toInt("MVIII") == 1008)
+  }
+
+  "toInt" must "count M followed by Xs, Vs and Is" in {
+    assert(toInt("MXVI") == 1016)
+    assert(toInt("MXXIV") == 1024)
+    assert(toInt("MXXVIII") == 1028)
+  }
+
+  "toInt" must "count M followed by Ls, Xs, Vs and Is" in {
+    assert(toInt("MLXVI") == 1066)
+    assert(toInt("MLXXIV") == 1074)
+    assert(toInt("MLXXVIII") == 1078)
+  }
+
+  "toInt" must "count M followed by Cs, Ls, Xs, Vs and Is" in {
+    assert(toInt("MCLXVI") == 1166)
+    assert(toInt("MCLXXIV") == 1174)
+    assert(toInt("MCLXXVIII") == 1178)
+    assert(toInt("MCCLXXVIII") == 1278)
+  }
+
+  "toInt" must "count M followed by D's, Cs, Ls, Xs, Vs and Is" in {
+    assert(toInt("MDCLXVI") == 1666)
+    assert(toInt("MDCLXXIV") == 1674)
+    assert(toInt("MDCLXXVIII") == 1678)
+    assert(toInt("MMMDCCLXXVIII") == 3778)
+  }
+
+  "toInt" must "count M preceded by a smaller numeral" in {
+    assert(toInt("IM") == 999)
+    assert(toInt("VM") == 995)
+    assert(toInt("XM") == 990)
+    assert(toInt("LM") == 950)
+    assert(toInt("CM") == 900)
+    assert(toInt("DM") == 500)
   }
 
 

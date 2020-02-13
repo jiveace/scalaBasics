@@ -11,6 +11,7 @@ object Roman {
       case "L" => 50
       case "C" => 100
       case "D" => 500
+      case "M" => 1000
       case _ => throw new IllegalStateException("Unsupported denomination")
     }
 
