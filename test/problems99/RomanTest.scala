@@ -304,6 +304,9 @@ class RomanTest extends AnyFunSpec {
       assert(toInt("MMDCCLXXIV") == 2774)
       assert(toInt("MMMLXVIII") == 3068)
       assert(toInt("MMMDCCCLXV") == 3865)
+      assert(toInt("MMMMMDCCCCCCCLXXXXXXXXXVIIIIII") == 6351)
+      assert(toInt("CMCDXCXLXIV") == 1444)
+
     }
   }
 
@@ -335,6 +338,9 @@ class RomanTest extends AnyFunSpec {
         assert(toRoman(30) == "XXX")
         assert(toRoman(3) == "III")
       }
+    }
+
+    describe("Translates complex cases") {
 
       it("translates digits that yield different") {
         assert(toRoman(1100) == "MC")
@@ -371,6 +377,8 @@ class RomanTest extends AnyFunSpec {
         assert(toRoman(2774) == "MMDCCLXXIV")
         assert(toRoman(3068) == "MMMLXVIII")
         assert(toRoman(3865) == "MMMDCCCLXV")
+        assert(toRoman(6351) == "MMMMMMCCCLI")
+        assert(toRoman(1444) == "MCDXLIV")
       }
     }
   }

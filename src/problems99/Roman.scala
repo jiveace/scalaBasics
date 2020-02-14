@@ -22,17 +22,6 @@ object Roman {
     case _ => throw new IllegalStateException("Unsupported denomination")
   }
 
-  private def mapOtherWay(x: Int): String = x match {
-    case 1 => I
-    case 5 => V
-    case 10 => X
-    case 50 => L
-    case 100 => C
-    case 500 => D
-    case 1000 => M
-    case _ => BLANK
-  }
-
   private def validate(str: String): String = {
     val splitString = str.split("").toList
 
@@ -83,11 +72,25 @@ object Roman {
   }
 
   def toRoman(x: Int): String = {
-    val numerals = List((M, 1000), ("CM", 900), (D, 500), ("CD", 400), (C, 100), ("XC", 90), (L, 50), ("XL", 40), (X, 10), ("IX", 9), (V, 5), ("IV", 4), (I, 1))
+    val numerals = List(
+      (M, 1000),
+      ("CM", 900),
+      (D, 500),
+      ("CD", 400),
+      (C, 100),
+      ("XC", 90),
+      (L, 50),
+      ("XL", 40),
+      (X, 10),
+      ("IX", 9),
+      (V, 5),
+      ("IV", 4),
+      (I, 1))
 
-    def _toRoman(remainder: Int, numerals: List[(String, Int)], result: String): String =
-      if (numerals.isEmpty) result
-      else _toRoman(remainder % numerals.head._2, numerals.tail, result + (numerals.head._1 * (remainder / numerals.head._2)))
+    def _toRoman(remainder: Int, _numerals: List[(String, Int)], result: String): String = _numerals match {
+      case Nil => result
+      case head :: tail => _toRoman(remainder % head._2, tail, result + (head._1 * (remainder / head._2)))
+    }
 
     if (x < 0) throw new IllegalArgumentException
     else _toRoman(x, numerals, "")
