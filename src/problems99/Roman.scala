@@ -9,6 +9,7 @@ object Roman {
   val C = "C"
   val D = "D"
   val M = "M"
+  val BLANK = ""
 
   private def mapDigit(str: String): Int = str match {
     case I => 1
@@ -19,6 +20,17 @@ object Roman {
     case D => 500
     case M => 1000
     case _ => throw new IllegalStateException("Unsupported denomination")
+  }
+
+  private def mapOtherWay(x: Int): String = x match {
+    case 1 => I
+    case 5 => V
+    case 10 => X
+    case 50 => L
+    case 100 => C
+    case 500 => D
+    case 1000 => M
+    case _ => BLANK
   }
 
   private def validate(str: String): String = {
@@ -69,4 +81,18 @@ object Roman {
     if (romans == null || romans.isEmpty) 0
     else _toInt(validate(romans).split("").map(mapDigit(_)).toList, 0)
   }
+
+  def toRoman(x: Int): String = {
+    def _toRoman(remainder: Int, result: String, numeral: String): String =
+        numeral * (remainder / mapDigit(numeral))
+    if (x < 0) throw new IllegalArgumentException
+    else if (x >= 1000) _toRoman(x, "", M) + mapOtherWay(x % 1000)
+    else if (x >= 500) _toRoman(x, "", D) + mapOtherWay(x % 500)
+    else if (x >= 100) _toRoman(x, "", C) + mapOtherWay(x % 100)
+    else if (x >= 50) _toRoman(x, "", L) + mapOtherWay(x % 50)
+    else if (x >= 10) _toRoman(x, "", X) + mapOtherWay(x % 10)
+    else if (x >= 5) _toRoman(x, "", V) + mapOtherWay(x % 5)
+    else  _toRoman(x, "", I)
+  }
+
 }

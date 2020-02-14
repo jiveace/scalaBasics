@@ -1,7 +1,7 @@
 package problems99
 
 import org.scalatest.funspec.AnyFunSpec
-import problems99.Roman.toInt
+import problems99.Roman.{toInt, toRoman}
 
 class RomanTest extends AnyFunSpec {
 
@@ -304,6 +304,38 @@ class RomanTest extends AnyFunSpec {
       assert(toInt("MMDCCLXXIV") == 2774)
       assert(toInt("MMMLXVIII") == 3068)
       assert(toInt("MMMDCCCLXV") == 3865)
+    }
+  }
+
+  describe("toRoman") {
+    describe("Degenerate Test cases") {
+      it("Throws Exception When passed a negative value") {
+        assertThrows[IllegalArgumentException](toRoman(-1))
+
+      }
+      it("Returns a blank when given 0 as inout") {
+        assert(toRoman(0) == "")
+      }
+    }
+
+    describe("Translates simple cases") {
+      it("translates digits that exactly match numerals") {
+        assert(toRoman(1) == "I")
+        assert(toRoman(5) == "V")
+        assert(toRoman(10) == "X")
+        assert(toRoman(50) == "L")
+        assert(toRoman(100) == "C")
+        assert(toRoman(500) == "D")
+        assert(toRoman(1000) == "M")
+      }
+
+      it("translates digits that yield multiple identical numerals") {
+                assert(toRoman(3000) == "MMM")
+                assert(toRoman(300) == "CCC")
+                assert(toRoman(30) == "XXX")
+        assert(toRoman(3) == "III")
+      }
+
     }
   }
 }
