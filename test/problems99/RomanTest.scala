@@ -6,6 +6,7 @@ import problems99.Roman.{toInt, toRoman, toNumeralList}
 class RomanTest extends AnyFunSpec {
 
   describe("toInt") {
+
     describe("Badly Formed Input") {
 
       it("must return 0 for null input") {
@@ -25,6 +26,7 @@ class RomanTest extends AnyFunSpec {
     }
 
     describe("handling 'I's") {
+
       it("must count Is properly") {
         assert(toInt("I") == 1)
         assert(toInt("III") == 3)
@@ -178,7 +180,6 @@ class RomanTest extends AnyFunSpec {
         assertThrows[IllegalStateException](toInt("DID"))
       }
 
-
       it("must count D followed by Is") {
         assert(toInt("DI") == 501)
         assert(toInt("DIIII") == 504)
@@ -306,22 +307,24 @@ class RomanTest extends AnyFunSpec {
       assert(toInt("MMMDCCCLXV") == 3865)
       assert(toInt("MMMMMDCCCCCCCLXXXXXXXXXVIIIIII") == 6351)
       assert(toInt("CMCDXCXLXIV") == 1444)
-
     }
   }
 
   describe("toRoman") {
     describe("Degenerate Test cases") {
+
       it("Throws Exception When passed a negative value") {
         assertThrows[IllegalArgumentException](toRoman(-1))
 
       }
+
       it("Returns a blank when given 0 as inout") {
         assert(toRoman(0) == "")
       }
     }
 
     describe("Translates simple cases") {
+
       it("translates digits that exactly match numerals") {
         assert(toRoman(1) == "I")
         assert(toRoman(5) == "V")
@@ -385,22 +388,22 @@ class RomanTest extends AnyFunSpec {
 
   describe("toNumeralList") {
     it("Passes saturation Tests Using Arbitrary Values") {
-      assert(toNumeralList("CXIII") == List("C","X","I","I","I"))
-      assert(toNumeralList("CDXIII") == List("CD","X","I","I","I"))
-      assert(toNumeralList("DCCI") == List("D","C","C","I"))
-      assert(toNumeralList("MLIII") == List("M","L","I","I","I"))
-      assert(toNumeralList("MLXXXV") == List("M","L","X","X","X","V"))
-      assert(toNumeralList("MCCCXV") == List("M","C","C","C","X","V"))
-      assert(toNumeralList("MCCCXLI") == List("M","C","C","C","XL","I"))
-      assert(toNumeralList("MDLXII") == List("M","D","L","X","I","I"))
-      assert(toNumeralList("MDCXVII") == List("M","D","C","X","V","I","I"))
-      assert(toNumeralList("MMXIV") == List("M","M","X","IV"))
-      assert(toNumeralList("MMCCLXX") == List("M","M","C","C","L","X","X"))
-      assert(toNumeralList("MMDCL") == List("M","M","D","C","L"))
-      assert(toNumeralList("MMDCCLXXIV") == List("M","M","D","C","C","L","X","X","IV"))
-      assert(toNumeralList("MMMLXVIII") == List("M","M","M","L","X","V","I","I","I"))
-      assert(toNumeralList("MMMDCCCLXV") == List("M","M","M","D","C","C","C","L","X","V"))
-      assert(toNumeralList("CMCDXCXLXIV") == List("CM","CD","XC","XL","X","IV"))
+      assert(toNumeralList("CXIII") == List("C", "X", "I", "I", "I"))
+      assert(toNumeralList("CDXIII") == List("CD", "X", "I", "I", "I"))
+      assert(toNumeralList("DCCI") == List("D", "C", "C", "I"))
+      assert(toNumeralList("MLIII") == List("M", "L", "I", "I", "I"))
+      assert(toNumeralList("MLXXXV") == List("M", "L", "X", "X", "X", "V"))
+      assert(toNumeralList("MCCCXV") == List("M", "C", "C", "C", "X", "V"))
+      assert(toNumeralList("MCCCXLI") == List("M", "C", "C", "C", "XL", "I"))
+      assert(toNumeralList("MDLXII") == List("M", "D", "L", "X", "I", "I"))
+      assert(toNumeralList("MDCXVII") == List("M", "D", "C", "X", "V", "I", "I"))
+      assert(toNumeralList("MMXIV") == List("M", "M", "X", "IV"))
+      assert(toNumeralList("MMCCLXX") == List("M", "M", "C", "C", "L", "X", "X"))
+      assert(toNumeralList("MMDCL") == List("M", "M", "D", "C", "L"))
+      assert(toNumeralList("MMDCCLXXIV") == List("M", "M", "D", "C", "C", "L", "X", "X", "IV"))
+      assert(toNumeralList("MMMLXVIII") == List("M", "M", "M", "L", "X", "V", "I", "I", "I"))
+      assert(toNumeralList("MMMDCCCLXV") == List("M", "M", "M", "D", "C", "C", "C", "L", "X", "V"))
+      assert(toNumeralList("CMCDXCXLXIV") == List("CM", "CD", "XC", "XL", "X", "IV"))
     }
   }
 }
