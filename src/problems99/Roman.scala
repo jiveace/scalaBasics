@@ -46,11 +46,11 @@ object Roman {
       case _ => throw new IllegalStateException(s"$a$b is an invalid numeral in this context")
     }
 
-    def validateNumeralOrder(list: List[String], lastNumeralIsBig: Boolean):Unit = list match {
+    def validateNumeralOrder(list: List[String], lastNumeralIsBig: Boolean): Unit = list match {
       case _ :: Nil => ()
-      case head :: tail if mapDigit (head) >= mapDigit (tail.head) || areSubtractivePair (head, tail.head ) && lastNumeralIsBig =>
-        validateNumeralOrder (tail, mapDigit (head) > mapDigit (tail.head ))
-      case _ => throw new IllegalStateException ("Numerals are not provided in descending order")
+      case head :: tail if mapDigit(head) >= mapDigit(tail.head) || areSubtractivePair(head, tail.head) && lastNumeralIsBig =>
+        validateNumeralOrder(tail, mapDigit(head) > mapDigit(tail.head))
+      case _ => throw new IllegalStateException("Numerals are not provided in descending order")
     }
 
     def checkForTenConsecutive(n: String) =
@@ -83,16 +83,14 @@ object Roman {
   }
 
   def toRoman(x: Int): String = {
-    def _toRoman(remainder: Int, result: String, numeral: String): String =
-        numeral * (remainder / mapDigit(numeral))
+    val numerals = List((M, 1000), ("CM", 900), (D, 500), ("CD", 400), (C, 100), ("XC", 90), (L, 50), ("XL", 40), (X, 10), ("IX", 9), (V, 5), ("IV", 4), (I, 1))
+
+    def _toRoman(remainder: Int, numerals: List[(String, Int)], result: String): String =
+      if (numerals.isEmpty) result
+      else _toRoman(remainder % numerals.head._2, numerals.tail, result + (numerals.head._1 * (remainder / numerals.head._2)))
+
     if (x < 0) throw new IllegalArgumentException
-    else if (x >= 1000) _toRoman(x, "", M) + mapOtherWay(x % 1000)
-    else if (x >= 500) _toRoman(x, "", D) + mapOtherWay(x % 500)
-    else if (x >= 100) _toRoman(x, "", C) + mapOtherWay(x % 100)
-    else if (x >= 50) _toRoman(x, "", L) + mapOtherWay(x % 50)
-    else if (x >= 10) _toRoman(x, "", X) + mapOtherWay(x % 10)
-    else if (x >= 5) _toRoman(x, "", V) + mapOtherWay(x % 5)
-    else  _toRoman(x, "", I)
+    else _toRoman(x, numerals, "")
   }
 
 }

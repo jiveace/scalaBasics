@@ -290,7 +290,7 @@ class RomanTest extends AnyFunSpec {
 
     it("Passes saturation Tests Using Arbitrary Values") {
       assert(toInt("CXIII") == 113)
-      assert(toInt("CCCCXIII") == 413)
+      assert(toInt("CDXIII") == 413)
       assert(toInt("DCCI") == 701)
       assert(toInt("MLIII") == 1053)
       assert(toInt("MLXXXV") == 1085)
@@ -330,12 +330,48 @@ class RomanTest extends AnyFunSpec {
       }
 
       it("translates digits that yield multiple identical numerals") {
-                assert(toRoman(3000) == "MMM")
-                assert(toRoman(300) == "CCC")
-                assert(toRoman(30) == "XXX")
+        assert(toRoman(3000) == "MMM")
+        assert(toRoman(300) == "CCC")
+        assert(toRoman(30) == "XXX")
         assert(toRoman(3) == "III")
       }
 
+      it("translates digits that yield different") {
+        assert(toRoman(1100) == "MC")
+        assert(toRoman(1500) == "MD")
+        assert(toRoman(1600) == "MDC")
+        assert(toRoman(1650) == "MDCL")
+        assert(toRoman(1660) == "MDCLX")
+        assert(toRoman(1665) == "MDCLXV")
+        assert(toRoman(1666) == "MDCLXVI")
+      }
+
+      it("translates digits that include subtractive pairs") {
+        assert(toRoman(1664) == "MDCLXIV")
+        assert(toRoman(1109) == "MCIX")
+        assert(toRoman(1540) == "MDXL")
+        assert(toRoman(1590) == "MDXC")
+        assert(toRoman(1450) == "MCDL")
+        assert(toRoman(1965) == "MCMLXV")
+      }
+
+      it("translates arbitrary values") {
+        assert(toRoman(113) == "CXIII")
+        assert(toRoman(413) == "CDXIII")
+        assert(toRoman(701) == "DCCI")
+        assert(toRoman(1053) == "MLIII")
+        assert(toRoman(1085) == "MLXXXV")
+        assert(toRoman(1315) == "MCCCXV")
+        assert(toRoman(1341) == "MCCCXLI")
+        assert(toRoman(1562) == "MDLXII")
+        assert(toRoman(1617) == "MDCXVII")
+        assert(toRoman(2014) == "MMXIV")
+        assert(toRoman(2270) == "MMCCLXX")
+        assert(toRoman(2650) == "MMDCL")
+        assert(toRoman(2774) == "MMDCCLXXIV")
+        assert(toRoman(3068) == "MMMLXVIII")
+        assert(toRoman(3865) == "MMMDCCCLXV")
+      }
     }
   }
 }
