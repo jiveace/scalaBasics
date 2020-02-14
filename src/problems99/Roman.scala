@@ -22,18 +22,18 @@ object Roman {
     case _ => throw new IllegalStateException("Unsupported denomination")
   }
 
+  private def areSubtractivePair(a: String, b: String): Boolean = (a, b) match {
+    case (I, V) => true
+    case (I, X) => true
+    case (X, L) => true
+    case (X, C) => true
+    case (C, D) => true
+    case (C, M) => true
+    case _ => false
+  }
+
   private def validate(str: String): String = {
     val splitString = str.split("").toList
-
-    def areSubtractivePair(a: String, b: String): Boolean = (a, b) match {
-      case (I, V) => true
-      case (I, X) => true
-      case (X, L) => true
-      case (X, C) => true
-      case (C, D) => true
-      case (C, M) => true
-      case _ => throw new IllegalStateException(s"$a$b is an invalid numeral in this context")
-    }
 
     def validateNumeralOrder(list: List[String], lastNumeralIsBig: Boolean): Unit = list match {
       case _ :: Nil => ()
@@ -96,4 +96,16 @@ object Roman {
     else _toRoman(x, numerals, "")
   }
 
+  def toNumeralList(str: String): List[String] = {
+
+    def _toNumeralList(remainder: List[String], result: List[String]): List[String] = remainder match {
+      case Nil => result
+      case h :: Nil => result :+ h
+      case h :: t if areSubtractivePair(h, t.head) => _toNumeralList(t.tail, result :+ (h + t.head))
+      case h :: t => _toNumeralList(t, result :+ h)
+    }
+
+    val list = str.split("").toList
+    _toNumeralList(list, List())
+  }
 }

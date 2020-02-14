@@ -1,7 +1,7 @@
 package problems99
 
 import org.scalatest.funspec.AnyFunSpec
-import problems99.Roman.{toInt, toRoman}
+import problems99.Roman.{toInt, toRoman, toNumeralList}
 
 class RomanTest extends AnyFunSpec {
 
@@ -380,6 +380,27 @@ class RomanTest extends AnyFunSpec {
         assert(toRoman(6351) == "MMMMMMCCCLI")
         assert(toRoman(1444) == "MCDXLIV")
       }
+    }
+  }
+
+  describe("toNumeralList") {
+    it("Passes saturation Tests Using Arbitrary Values") {
+      assert(toNumeralList("CXIII") == List("C","X","I","I","I"))
+      assert(toNumeralList("CDXIII") == List("CD","X","I","I","I"))
+      assert(toNumeralList("DCCI") == List("D","C","C","I"))
+      assert(toNumeralList("MLIII") == List("M","L","I","I","I"))
+      assert(toNumeralList("MLXXXV") == List("M","L","X","X","X","V"))
+      assert(toNumeralList("MCCCXV") == List("M","C","C","C","X","V"))
+      assert(toNumeralList("MCCCXLI") == List("M","C","C","C","XL","I"))
+      assert(toNumeralList("MDLXII") == List("M","D","L","X","I","I"))
+      assert(toNumeralList("MDCXVII") == List("M","D","C","X","V","I","I"))
+      assert(toNumeralList("MMXIV") == List("M","M","X","IV"))
+      assert(toNumeralList("MMCCLXX") == List("M","M","C","C","L","X","X"))
+      assert(toNumeralList("MMDCL") == List("M","M","D","C","L"))
+      assert(toNumeralList("MMDCCLXXIV") == List("M","M","D","C","C","L","X","X","IV"))
+      assert(toNumeralList("MMMLXVIII") == List("M","M","M","L","X","V","I","I","I"))
+      assert(toNumeralList("MMMDCCCLXV") == List("M","M","M","D","C","C","C","L","X","V"))
+      assert(toNumeralList("CMCDXCXLXIV") == List("CM","CD","XC","XL","X","IV"))
     }
   }
 }
